@@ -1,0 +1,1 @@
+# Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison
