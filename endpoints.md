@@ -11,23 +11,24 @@
 | POST   | /v1/consents/{consent-id}/authorisations | /v2/consents/{consent-id}/authorisations | ❌ removed |      |        |         |          |       | modifications.md#accounts-get |
 | GET    | /v1/consents/{consent-id}/authorisations | /v2/consents/{consent-id}/authorisations | ❌ removed |      |        |         |          |       | modifications.md#accounts-get |
 | PUT    | /v1/consents/{consent-id}/authorisations/{authorisation-id} | /v2/consents/{consent-id}/authorisations/{authorisation-id} | ❌ removed |      |        |         |          |      | Details |
-| GET    | /v1/accounts | /v2/accounts | 🔶 modified | ✅ | ✅ | ✅ | ✅ |       | Details |
-| GET    | /v1/accounts/{account-id} | /v2/accounts/{account-id} | 🔶 modified | ✅ | ✅ | ✅ | ✅ |       | Details |
-| GET    | /v1/accounts/{account-id}/balances | /v2/accounts/{account-id}/balances | 🔶 modified | ✅ | ✅ | ✅ | ✅ |       | Details |
-| GET    | /v1/accounts/{account-id}/transactions | /v2/accounts/{account-id}/transactions | 🔶 modified | ✅ | ✅ | ✅ | ✅ | ✅ | Details |
-| GET    | /v1/accounts/{account-id}/transactions/{transaction-id} | /v2/accounts/{account-id}/transactions/{transaction-id} | 🔶 modified | ✅ | ✅ | ✅ | ✅ | ✅ | Details |
+| GET    | /v1/consents/{consent-id}/authorisations/{authorisation-id} | /v2/consents/{consent-id}/authorisations/{authorisation-id} | ❌ removed |      |        |         |          |      | Details |
+| GET    | /v1/accounts | /v2/accounts | 🔶 modified |  | ✅ |  | ✅ |       | Details |
+| GET    | /v1/accounts/{account-id} | /v2/accounts/{account-id} | 🔶 modified |  | ✅ |  | ✅ |       | Details |
+| GET    | /v1/accounts/{account-id}/balances | /v2/accounts/{account-id}/balances | 🔶 modified |  | ✅ |  | ✅ |       | Details |
+| GET    | /v1/accounts/{account-id}/transactions | /v2/accounts/{account-id}/transactions | 🔶 modified |  | ✅ |  | ✅ |  | Details |
+| GET    | /v1/accounts/{account-id}/transactions/{transaction-id} | /v2/accounts/{account-id}/transactions/{transaction-id} | 🔶 modified |  | ✅ |  | ✅ |  | Details |
 | GET    | /v1/accounts/{account-id}/cheques | /v2/accounts/{account-id}/cheques | ❌ removed |      |        |         |          |       | Details |
-| GET    | /v1/card-accounts | /v2/card-accounts | 🔶 modified | ✅ | ✅ | ✅ | ✅ |       | Details |
-| GET    | /v1/card-accounts/{account-id} | /v2/card-accounts/{account-id} | 🔶 modified | ✅ | ✅ | ✅ | ✅ |       | Details |
-| GET    | /v1/card-accounts/{account-id}/balances | /v2/card-accounts/{account-id}/balances | 🔶 modified | ✅ | ✅ | ✅ | ✅ |       | Details |
-| GET    | /v1/card-accounts/{account-id}/transactions | /v2/card-accounts/{account-id}/transactions | 🔶 modified | ✅ | ✅ | ✅ | ✅ | ✅ | Details |
+| GET    | /v1/card-accounts | /v2/card-accounts | 🔶 modified |  | ✅ |  | ✅ |       | Details |
+| GET    | /v1/card-accounts/{account-id} | /v2/card-accounts/{account-id} | 🔶 modified |  | ✅ |  | ✅ |       | Details |
+| GET    | /v1/card-accounts/{account-id}/balances | /v2/card-accounts/{account-id}/balances | 🔶 modified |  | ✅ |  | ✅ |     | Details |
+| GET    | /v1/card-accounts/{account-id}/transactions | /v2/card-accounts/{account-id}/transactions | 🔶 modified |  | ✅ |  | ✅ | ✅ | Details |
 
 
 ### PIS (Payment Initiation Services)
 
 | Method | Endpoint V1 | Endpoint V2 | Status | Path | Header | Request | Response | Query |
 |--------|-------------|-------------|--------|------|--------|---------|----------|-------|
-| POST   | /v1/payment-service/{payment-product} | /v2/payment-service/{payment-product} | 🔶 modified | ✅ | ✅ | ✅ | ✅ |       |
+| POST   | /v1/payment-service/{payment-product} | /v2/payments/{payment-product} | 🔶 modified | ✅ | ✅ | ✅ | ✅ |       |
 | POST   | /v1/payment-service/{payment-product}/authorisations | /v2/payment-service/{payment-product}/authorisations | ❌ removed |      |        |         |          |       |
 | PUT    | /v1/payment-service/{payment-product}/authorisations/{authorisation-id} | /v2/payment-service/{payment-product}/authorisations/{authorisation-id} | ❌ removed |      |        |         |          |       |
 | GET    | /v1/payment-service/{payment-product}/{payment-id} | /v2/payment-service/{payment-product}/{payment-id} | 🔶 modified | ✅ | ✅ | ✅ | ✅ |       |
