@@ -4,9 +4,8 @@ This repository documents the differences between the earlier **NextGenPSD2** sp
 
 ## 📂 Overview
 
-- [🧾 Base Overview](base-overview.md) — List of all API methods and their status.
-- [🛠 Modified Endpoints](modified-endpoints.md) — Detailed changes in endpoints and schemas.
-- [🗑 Removed Endpoints](removed-endpoints.md) — Endpoints removed in v2.
+- [🧾 Base Overview](base-overview.md) — Description and guide through the repo.
+- [🛠 Modified Endpoints](endpoints.md) — List of all API methods and their status.
+- [🗑 Removed Endpoints](modified-endpoints.md) — Detailed changes in endpoints and schemas.
 - [📌 Common Changes](common-changes.md) — Shared modifications (headers, responses, etc).
 
-> 📁 All raw data can be found in the [`/data`](data/) folder.
