@@ -80,7 +80,6 @@ Path changed from /v1/{payment-service}/{payment-product} to /v2/payments/{payme
 - **401 response** -[Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-error-response-extended)
 - **429 response** - removed;
 
-**See common:** [common](common.md#headers), [chosenScaMethodname](common.md#headers), [common](common.md#headers)
 
 ---
 
