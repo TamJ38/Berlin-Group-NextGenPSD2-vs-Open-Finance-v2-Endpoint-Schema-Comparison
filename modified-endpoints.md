@@ -34,7 +34,7 @@ This file contains detailed changes for each modified endpoint. Where applicable
 Path changed from /v1/{payment-service}/{payment-product} to /v2/payments/{payment-product}
 
 #### 🧩 Header
-[See the common changes - PIS Part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#pis)  from the file: common.md;
+[See - AIS/PIS/PIIS and PIS Part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-headers)  from the file: common.md;
 - **Additional changes are:**
 - `Body-Sig-Profile`, `Body-Enc-Profile`, `Body-Enc-List`, `Content-Type` - added;
 - `TPP-Redirect-URI` ->`Client-Redirect-URI`,
@@ -75,9 +75,9 @@ Path changed from /v1/{payment-service}/{payment-product} to /v2/payments/{payme
   - added _links value:encryptionCertificates;
 - **400,401, 403, 404,405, 409 response**
   - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
-  - [See here - Error response changed - PIS](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#pis-1)
-  - [See here - Parameter _links](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-parameter-_links)
-- **401 response** -[Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-error-response-extended)
+  - [See here - Error response changed - PIS](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#pis-1);
+  - [See here - Parameter _links](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-parameter-_links);
+- **401 response** -[Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-error-response-extended);
 - **429 response** - removed;
 
 
@@ -90,8 +90,8 @@ Path changed from /v1/{payment-service}/{payment-product} to /v2/payments/{payme
 **Endpoint v1**: `v1/{payment-service}/{payment-product}/{payment-id}/status`
 
 #### 🧩 Header
-- [See here AIS / PIS / PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#ais--pis--piis)
-- [See here Added PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-added-pis)
+- [See here AIS / PIS / PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#ais--pis--piis);
+- [See here Added PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-added-pis);
 - `PSU-IP-Address`, `PSU-IP-Port, PSU-Accept`, `PSU-Accept-Charset`, `PSU-Accept-Encoding`, `PSU-Accept-Language`, `PSU-User-Agent`, `PSU-Http-Method`, `PSU-Device-ID`, `PSU-Geo-Location` - deleted;
 
 #### 🟦 Response
@@ -126,8 +126,8 @@ messageCode_PushAisSpecific{...}
 **401 response** - [Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-error-response-extended)
 - **400,401, 403, 404,405, 409 response**
   - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
-  - [See here - Error response changed - PIS](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#pis-1)
-  - [See here - Parameter _links](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-parameter-_links)
+  - [See here - Error response changes - PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#pis);
+  - [See here - Parameter _links part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
 - **429 response** - deleted;
 
 ---
