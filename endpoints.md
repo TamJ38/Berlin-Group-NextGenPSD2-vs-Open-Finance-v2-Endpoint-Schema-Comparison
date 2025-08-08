@@ -2,26 +2,26 @@
 
 ### AIS (Account Information Services)
 
-| Method | Endpoint V1 | Endpoint V2 | Status | Path | Header | Request | Response | Query | Details |
-|--------|-------------|-------------|-----------|------|--------|---------|----------|-------|----------------|
-| POST   | /v1/consents | /v2/consents | ❌ removed |      |        |         |          |       | [View Details]modifications.md#accounts-get |
-| GET    | /v1/consents/{consent-id} | /v2/consents/{consent-id} | ❌ removed |      |        |         |          |       | modifications.md#accounts-get |
-| DELETE | /v1/consents/{consent-id} | /v2/consents/{consent-id} | ❌ removed |      |        |         |          |       | modifications.md#accounts-get |
-| GET    | /v1/consents/{consent-id}/status | /v2/consents/{consent-id}/status | ❌ removed |      |        |         |          |       | modifications.md#accounts-get |
-| POST   | /v1/consents/{consent-id}/authorisations | /v2/consents/{consent-id}/authorisations | ❌ removed |      |        |         |          |       | modifications.md#accounts-get |
-| GET    | /v1/consents/{consent-id}/authorisations | /v2/consents/{consent-id}/authorisations | ❌ removed |      |        |         |          |       | modifications.md#accounts-get |
-| PUT    | /v1/consents/{consent-id}/authorisations/{authorisation-id} | /v2/consents/{consent-id}/authorisations/{authorisation-id} | ❌ removed |      |        |         |          |      | Details |
-| GET    | /v1/consents/{consent-id}/authorisations/{authorisation-id} | /v2/consents/{consent-id}/authorisations/{authorisation-id} | ❌ removed |      |        |         |          |      | Details |
-| GET    | /v1/accounts | /v2/accounts | 🔶 modified |  | ✅ |  | ✅ |       | Details |
-| GET    | /v1/accounts/{account-id} | /v2/accounts/{account-id} | 🔶 modified |  | ✅ |  | ✅ |       | Details |
-| GET    | /v1/accounts/{account-id}/balances | /v2/accounts/{account-id}/balances | 🔶 modified |  | ✅ |  | ✅ |       | Details |
-| GET    | /v1/accounts/{account-id}/transactions | /v2/accounts/{account-id}/transactions | 🔶 modified |  | ✅ |  | ✅ |  | Details |
-| GET    | /v1/accounts/{account-id}/transactions/{transaction-id} | /v2/accounts/{account-id}/transactions/{transaction-id} | 🔶 modified |  | ✅ |  | ✅ |  | Details |
-| GET    | /v1/accounts/{account-id}/cheques | /v2/accounts/{account-id}/cheques | ❌ removed |      |        |         |          |       | Details |
-| GET    | /v1/card-accounts | /v2/card-accounts | 🔶 modified |  | ✅ |  | ✅ |       | Details |
-| GET    | /v1/card-accounts/{account-id} | /v2/card-accounts/{account-id} | 🔶 modified |  | ✅ |  | ✅ |       | Details |
-| GET    | /v1/card-accounts/{account-id}/balances | /v2/card-accounts/{account-id}/balances | 🔶 modified |  | ✅ |  | ✅ |     | Details |
-| GET    | /v1/card-accounts/{account-id}/transactions | /v2/card-accounts/{account-id}/transactions | 🔶 modified |  | ✅ |  | ✅ | ✅ | Details |
+| Method | Endpoint V1 | Endpoint V2 | Status | Path | Header | Request | Response | Query | 
+|--------|-------------|-------------|-----------|------|--------|---------|----------|-------|
+| POST   | /v1/consents | /v2/consents | ❌ removed |      |        |         |          |       |  
+| GET    | /v1/consents/{consent-id} | /v2/consents/{consent-id} | ❌ removed |      |        |         |          |       |  
+| DELETE | /v1/consents/{consent-id} | /v2/consents/{consent-id} | ❌ removed |      |        |         |          |       |  
+| GET    | /v1/consents/{consent-id}/status | /v2/consents/{consent-id}/status | ❌ removed |      |        |         |          |       |  
+| POST   | /v1/consents/{consent-id}/authorisations | /v2/consents/{consent-id}/authorisations | ❌ removed |      |        |         |          |       |  
+| GET    | /v1/consents/{consent-id}/authorisations | /v2/consents/{consent-id}/authorisations | ❌ removed |      |        |         |          |       |  |
+| PUT    | /v1/consents/{consent-id}/authorisations/{authorisation-id} | /v2/consents/{consent-id}/authorisations/{authorisation-id} | ❌ removed |      |        |         |          |      | 
+| GET    | /v1/consents/{consent-id}/authorisations/{authorisation-id} | /v2/consents/{consent-id}/authorisations/{authorisation-id} | ❌ removed |      |        |         |          |      | 
+| GET    | /v1/accounts | /v2/accounts | 🔶 modified |  | ✅ |  | ✅ |       | 
+| GET    | /v1/accounts/{account-id} | /v2/accounts/{account-id} | 🔶 modified |  | ✅ |  | ✅ |       | 
+| GET    | /v1/accounts/{account-id}/balances | /v2/accounts/{account-id}/balances | 🔶 modified |  | ✅ |  | ✅ |       | 
+| GET    | /v1/accounts/{account-id}/transactions | /v2/accounts/{account-id}/transactions | 🔶 modified |  | ✅ |  | ✅ |  | 
+| GET    | /v1/accounts/{account-id}/transactions/{transaction-id} | /v2/accounts/{account-id}/transactions/{transaction-id} | 🔶 modified |  | ✅ |  | ✅ |  
+| GET    | /v1/accounts/{account-id}/cheques | /v2/accounts/{account-id}/cheques | ❌ removed |      |        |         |          |       | 
+| GET    | /v1/card-accounts | /v2/card-accounts | 🔶 modified |  | ✅ |  | ✅ |       | 
+| GET    | /v1/card-accounts/{account-id} | /v2/card-accounts/{account-id} | 🔶 modified |  | ✅ |  | ✅ |       | 
+| GET    | /v1/card-accounts/{account-id}/balances | /v2/card-accounts/{account-id}/balances | 🔶 modified |  | ✅ |  | ✅ |     |
+| GET    | /v1/card-accounts/{account-id}/transactions | /v2/card-accounts/{account-id}/transactions | 🔶 modified |  | ✅ |  | ✅ | ✅ | 
 
 
 ### PIS (Payment Initiation Services)
