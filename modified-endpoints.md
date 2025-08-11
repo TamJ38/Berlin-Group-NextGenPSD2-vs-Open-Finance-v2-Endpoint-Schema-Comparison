@@ -96,7 +96,7 @@ Path changed from /v1/{payment-service}/{payment-product} to /v2/payments/{payme
 
 #### 🟦 Response
 - **200 response**
-  - E2 - from the sheet: common; 
+  - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed);
   - added  enum value: PRES in transactionStatus, reasonCode, reasonProprietary, transactionFees, currencyConversionFees, estimatedTotalAmount, estimatedInterbankSettlementAmount;
   - deleted psuName;
   - _links is extended with:
@@ -123,10 +123,10 @@ messageCode_SigningBasketSpecific{...}
 messageCode_PushAisSpecific{...}
 };
 ```
-**401 response** - [Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-error-response-extended)
+**401 response** - [Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-response-extended)
 - **400,401, 403, 404,405, 409 response**
   - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
-  - [See here - Error response changes - PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#pis);
+  - [See here - Error response changes - PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-400-401-403-404-response-changed---pis);
   - [See here - Parameter _links part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
 - **429 response** - deleted;
 
@@ -140,12 +140,10 @@ messageCode_PushAisSpecific{...}
 
 
 #### 🧩 Header
-- [See here AIS / PIS / PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#ais--pis--piis)
+- [See here AIS/PIS/PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
 - [See here Added PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-added-pis)
 PSU-IP-Address, PSU-IP-Port, PSU-Accept, PSU-Accept-Charset, PSU-Accept-Encoding, PSU-Accept-Language, PSU-User-Agent, PSU-Http-Method, PSU-Device-ID, PSU-Geo-Location - deleted;
-C7 from the sheet:common - *200 response is not included
 
-**See common:** [C2](common.md#headers), [C3](common.md#headers), [C4](common.md#headers), [C8](common.md#headers), [C7](common.md#headers)
 
 #### 🟦 Response
 200 response 
