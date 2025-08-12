@@ -33,7 +33,7 @@
 | Method | Endpoint V1 | Endpoint V2 | Status | Path | Header | Request | Response | Query |
 |--------|-------------|-------------|--------|------|--------|---------|----------|-------|
 | POST   | /v1/payment-service/{payment-product} | /v2/payments/{payment-product} | 🔶 modified | ✅ | ✅ | ✅ | ✅ |       |
-| POST   | /v1/payment-service/{payment-product}/authorisations | /v2/payment-service/{payment-product}/authorisations | ❌ removed |      |        |         |          |       |
+| POST   | /v1/payment-service/{payment-product}/authorisations | //v2/{resource-path}/{resourceId}/{authorisation-category} | 🔶 modified |      |        |         |          |       |
 | PUT    | /v1/payment-service/{payment-product}/{payment-id}/authorisations/{authorisation-id} | /v2/{resource-path}/{resourceId}/{authorisation-category}/{authorisationId} | 🔶 modified |      |        |         |          |       |
 | GET    |/v1/payment-service/{payment-product}/{payment-id}/authorisations/{authorisation-id} | /v2/{resource-path}/{resourceId}/{authorisation-category}/{authorisationId}  | 🔶 modified  |  |  |  |  |       |
 | GET    | /v1/payment-service/{payment-product}/{payment-id} | /v2/payment-service/{payment-product}/{payment-id} | 🔶 modified | ✅ | ✅ |  | ✅ |       |
