@@ -7,10 +7,10 @@
 
 ## ✨ Repository Structure
 
-| Sheet Name   | Description |
+| File Name   | Description |
 |--------------|-------------|
 | `Endpoints`  | Lists **all endpoints** in v1 and v2. Shows the **HTTP method**, **path**, **status** (removed, added, modified), and what changed (Path, Header, Request, Response, Query). |
-| `Modifications` | Describes changes in endpoints marked as **modified**. Specifies what changed (e.g. renamed path, added field, altered response). |
+| `Modified endpoints` | Describes changes in endpoints marked as **modified**. Specifies what changed (e.g. renamed path, added field, altered response). |
 | `Common`     | Contains **shared/global changes** referenced in `Modifications`. Helps avoid duplication of recurring changes. |
 
 ---
@@ -52,7 +52,7 @@ Example snippet from the full comparison matrix:
 - Use the `Endpoints` tab to view the full change matrix
 - Cross-reference `Modifications` for detailed diffs of changed endpoints
 - Check the `Common` tab for global/query/header changes reused across endpoints
-- Filter by:
+- Filtered by:
   - API group: AIS / PIS / PIIS
 
 ---
@@ -61,5 +61,6 @@ Example snippet from the full comparison matrix:
 
 This comparison is curated based on official Berlin Group specifications.  
 It is structured for high reusability in documentation, implementation planning, testing pipelines, and automated migration workflows.
+
 
 
