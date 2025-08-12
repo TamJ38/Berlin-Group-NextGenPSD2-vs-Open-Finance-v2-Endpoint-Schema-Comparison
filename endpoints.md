@@ -4,14 +4,14 @@
 
 | Method | Endpoint V1 | Endpoint V2 | Status | Path | Header | Request | Response | Query | 
 |--------|-------------|-------------|-----------|------|--------|---------|----------|-------|
-| POST   | /v1/consents | /v2/consents | ❌ removed |      |        |         |          |       |  
-| GET    | /v1/consents/{consent-id} | /v2/consents/{consent-id} | ❌ removed |      |        |         |          |       |  
-| DELETE | /v1/consents/{consent-id} | /v2/consents/{consent-id} | ❌ removed |      |        |         |          |       |  
-| GET    | /v1/consents/{consent-id}/status | /v2/consents/{consent-id}/status | ❌ removed |      |        |         |          |       |  
-| POST   | /v1/consents/{consent-id}/authorisations | /v2/consents/{consent-id}/authorisations | ❌ removed |      |        |         |          |       |  
-| GET    | /v1/consents/{consent-id}/authorisations | /v2/consents/{consent-id}/authorisations | ❌ removed |      |        |         |          |       |  |
-| PUT    | /v1/consents/{consent-id}/authorisations/{authorisation-id} | /v2/consents/{consent-id}/authorisations/{authorisation-id} | ❌ removed |      |        |         |          |      | 
-| GET    | /v1/consents/{consent-id}/authorisations/{authorisation-id} | /v2/consents/{consent-id}/authorisations/{authorisation-id} | ❌ removed |      |        |         |          |      | 
+| POST   | /v1/consents | /v2/consents/account-access | 🔶 modified |      |        |         |          |       |  
+| GET    | /v1/consents/{consent-id} | /v2/consents/account-access/{consent-id} | 🔶 modified |      |        |         |          |       |  
+| DELETE | /v1/consents/{consent-id} | /v2/consents/{consent-category}/{consentId} | 🔶 modified |      |        |         |          |       |  
+| GET    | /v1/consents/{consent-id}/status | /v2/consents/{consent-category}/{consentId}/status | 🔶 modified |      |        |         |          |       |  
+| POST   | /v1/consents/{consent-id}/authorisations | /v2/{resource-path}/{resourceId}/{authorisation-category} | 🔶 modified |      |        |         |          |       |  
+| GET    | /v1/consents/{consent-id}/authorisations | /v2/{resource-path}/{resourceId}/{authorisation-category} | 🔶 modified |      |        |         |          |       |  |
+| PUT    | /v1/consents/{consent-id}/authorisations/{authorisation-id} | /v2/{resource-path}/{resourceId}/{authorisation-category}/{authorisationId} | 🔶 modified |      |        |         |          |      | 
+| GET    | /v1/consents/{consent-id}/authorisations/{authorisation-id} | /v2/{resource-path}/{resourceId}/{authorisation-category}/{authorisationId} | 🔶 modified |      |        |         |          |      | 
 | GET    | /v1/accounts | /v2/accounts | 🔶 modified |  | ✅ |  | ✅ |       | 
 | GET    | /v1/accounts/{account-id} | /v2/accounts/{account-id} | 🔶 modified |  | ✅ |  | ✅ |       | 
 | GET    | /v1/accounts/{account-id}/balances | /v2/accounts/{account-id}/balances | 🔶 modified |  | ✅ |  | ✅ |       | 
@@ -22,6 +22,10 @@
 | GET    | /v1/card-accounts/{account-id} | /v2/card-accounts/{account-id} | 🔶 modified |  | ✅ |  | ✅ |       | 
 | GET    | /v1/card-accounts/{account-id}/balances | /v2/card-accounts/{account-id}/balances | 🔶 modified |  | ✅ |  | ✅ |     |
 | GET    | /v1/card-accounts/{account-id}/transactions | /v2/card-accounts/{account-id}/transactions | 🔶 modified |  | ✅ |  | ✅ | ✅ | 
+| POST   |  | /v2/consents/user-parameters-access | ➕ added |  |  |  |  |  | 
+| GET    |  | /v2/consents/user-parameters-access/{consentId} | ➕ added |  |  |  |  |  | 
+| POST    |  | //v2/consents/document-services | ➕ added |  |  |  |  |  | 
+| GET    |  | /v2/consents/document-services/{consentId} | ➕ added |  |  |  |  |  | 
 
 
 ### PIS (Payment Initiation Services)
@@ -30,8 +34,8 @@
 |--------|-------------|-------------|--------|------|--------|---------|----------|-------|
 | POST   | /v1/payment-service/{payment-product} | /v2/payments/{payment-product} | 🔶 modified | ✅ | ✅ | ✅ | ✅ |       |
 | POST   | /v1/payment-service/{payment-product}/authorisations | /v2/payment-service/{payment-product}/authorisations | ❌ removed |      |        |         |          |       |
-| PUT    | /v1/payment-service/{payment-product}/{payment-id}/authorisations/{authorisation-id} | /v2/payment-service/{payment-product}/{payment-id}/authorisations/{authorisation-id} | ❌ removed |      |        |         |          |       |
-| GET    |/v1/payment-service/{payment-product}/{payment-id}/authorisations/{authorisation-id} | /v2/payment-service/{payment-product}/{payment-id}/authorisations/{authorisation-id}  | ❌ removed |  |  |  |  |       |
+| PUT    | /v1/payment-service/{payment-product}/{payment-id}/authorisations/{authorisation-id} | /v2/{resource-path}/{resourceId}/{authorisation-category}/{authorisationId} | 🔶 modified |      |        |         |          |       |
+| GET    |/v1/payment-service/{payment-product}/{payment-id}/authorisations/{authorisation-id} | /v2/{resource-path}/{resourceId}/{authorisation-category}/{authorisationId}  | 🔶 modified  |  |  |  |  |       |
 | GET    | /v1/payment-service/{payment-product}/{payment-id} | /v2/payment-service/{payment-product}/{payment-id} | 🔶 modified | ✅ | ✅ |  | ✅ |       |
 | PUT    | /v1/payment-service/{payment-product}/{payment-id} | /v2/payment-service/{payment-product}/{payment-id} | 🔶 modified | ✅ | ✅ | ✅ | ✅ |       |
 | GET    | /v1/payment-service/{payment-product}/{payment-id}/status | /v2/payment-service/{payment-product}/{payment-id}/status | 🔶 modified | ✅ | ✅ |  | ✅ |       |
