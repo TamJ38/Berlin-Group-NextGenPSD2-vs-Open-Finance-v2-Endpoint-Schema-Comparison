@@ -8,7 +8,7 @@ This file contains detailed changes for each modified endpoint. Where applicable
 |-----|--------|-------------|---------|---------|
 | PIS | POST | `/v2/payments/{payment-product}` | 📬 Path, 🧩 Header, 🧾 Request, 🟦 Response | [See details](#v2-payments-payment-product) |
 | PIS | GET | `v2/{payment-service}/{payment-product}/{payment-id}/status` | 🧩 Header, 🟦 Response | [See details](#v2-payment-service-payment-product-payment-id-status) |
-| PIS | GET | `v2/{payment-service}/{payment-product}/{payment-id}` | 🧩 Header, 🟦 Response | [See details](#v2-payment-service-payment-product-payment-id) |
+| PIS | GET | `v2/{payment-service}/{payment-product}/{payment-id}` | 📬 Path, 🧩 Header, 🟦 Response | [See details](#v2-payment-service-payment-product-payment-id) |
 | PIS | DELETE | `v1/{payment-service}/{payment-product}/{payment-id}` | 🧩 Header, 🟦 Response | [See details](#v1-payment-service-payment-product-payment-id) |
 | PIS | GET | `/v2/bulk-payments/{payment-product}/{paymentId}/extended-status` | 🧩 Header, 🟦 Response | [See details](#v2-bulk-payments-payment-product-paymentid-extended-status) |
 | PIIS | POST | `v1/funds-confirmations` | 🧩 Header, 🧾 Request, 🟦 Response | [See details](#v1-funds-confirmations) |
@@ -77,7 +77,7 @@ Path changed from /v1/{payment-service}/{payment-product} to /v2/payments/{payme
   - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
   - [See here - Error response changed - PIS](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#pis-1);
   - [See here - Parameter _links](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-parameter-_links);
-- **401 response** -[Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-error-response-extended);
+- **401 response** -[AIS / PIS / PIIS part - Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-error-response-extended);
 - **429 response** - removed;
 
 
@@ -123,7 +123,7 @@ messageCode_SigningBasketSpecific{...}
 messageCode_PushAisSpecific{...}
 };
 ```
-**401 response** - [Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-response-extended)
+- **401 response** - [AIS / PIS / PIIS part - Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-response-extended)
 - **400,401, 403, 404,405, 409 response**
   - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
   - [See here - Error response changes - PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-400-401-403-404-response-changed---pis);
@@ -138,60 +138,65 @@ messageCode_PushAisSpecific{...}
 **Endpoint v2**: `v2/{payment-service}/{payment-product}/{payment-id}`
 **Endpoint v1**: `v1/{payment-service}/{payment-product}/{payment-id}`
 
-
+#### 📬 Path
+- added new enum value for the path parameter **payment-product**: pain.001-proprietary-credit-transfers 
 #### 🧩 Header
 - [See here AIS/PIS/PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
-- [See here Added PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-added-pis)
+- [See here Added PIS part **200 response is not included**](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-added-pis)
 PSU-IP-Address, PSU-IP-Port, PSU-Accept, PSU-Accept-Charset, PSU-Accept-Encoding, PSU-Accept-Language, PSU-User-Agent, PSU-Http-Method, PSU-Device-ID, PSU-Geo-Location - deleted;
 
 
 #### 🟦 Response
-200 response 
-oneOf ->	
+- **200 response** 
+``` oneOf ->	
 paymentInitiationWithStatusResponse{...}
 periodicPaymentInitiationWithStatusResponse{..}
 bulkPaymentInitiationWithStatusResponse{...}
+```
 changed to:
-anyOf ->	
+``` anyOf ->	
 SinglePayment_generic{...}
 BulkPayment_generic{...}
 PeriodicPayment_generic{...}; (whole response is changed)
-401 response - E6
-400, 401, 403,404,405,409 response - E2,E3,E4,E5 from the sheets:common;   
-429 response - removed;
-
-**See common:** [changed](common.md#headers), [changed)](common.md#headers)
+```
+- **401 response** - [AIS / PIS / PIIS part - Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-response-extended)
+- **400,401, 403, 404,405, 409 response**
+  - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
+  - [See here - Error response changes - PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-400-401-403-404-response-changed---pis);
+  - [See here - Parameter _links part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
+- **429 response** - deleted;
 
 ---
 
 ### v1-payment-service-payment-product-payment-id
 **Group**: PIS  
 **Method**: `DELETE`  
-**Endpoint**: `v1/{payment-service}/{payment-product}/{payment-id}`
+**Endpoint v2**: `v2/{payment-service}/{payment-product}/{payment-id}`
+**Endpoint v1**: `v1/{payment-service}/{payment-product}/{payment-id}`
 
 #### 🧩 Header
-C2, C3, C4, C6, C7, C8 from the sheet:common;
-TPP-Redirect-URI ->Client-Redirect-URI,
+- [See here AIS/PIS/PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here Added PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-added-pis)
+``` TPP-Redirect-URI ->Client-Redirect-URI,
 TPP-Nok-Redirect-URI->Client-Nok-Redirect-URI, 
 TPP-Explicit-Authorisation-Preferred-> Client-Explicit-Authorisation-Preferred(async authorization);
 PSU-ID, PSU-ID-Type, PSU-Corporate-ID, PSU-Corporate-ID-Type, Client-Notification-URI, Client-Notification-Content-Preferred, Client-Brand-Logging-Information added;
+```
 
-**See common:** [C2](common.md#headers), [C3](common.md#headers), [C4](common.md#headers), [C6](common.md#headers), [C7](common.md#headers), [C8](common.md#headers), [Client-Explicit-Authorisation-Preferred(async](common.md#headers), [Client-Notification-URI](common.md#headers), [Client-Notification-Content-Preferred](common.md#headers), [Client-Brand-Logging-Information](common.md#headers)
 
 #### 🟦 Response
-202 Received changed to 202 Accepted;
-202 response 
+- **202 Received** changed to **202 Accepted**;
+- **202 response** 
 - added ENUM value: PRES in transactionStatus;  
-scaMethods[].name and chosenScaMethod.name are required in v2;
-added in links: scaRedirect scaOAuth, confirmation, 
-startAuthorisationWithTransactionAuthorisation self, status, scaStatus, encryptionCertificates, < * >;
-401 response - E6
-400, 401, 403, 404, 405, 409 response -  E2, E3(including response 405), E4 from the sheet:common;
- *only 409 response has one part 	
-MessageCode_ServiceUnspecific_409;
-429 response deleted;
-
-**See common:** [changed](common.md#headers), [chosenScaMethodname](common.md#headers), [confirmation](common.md#headers)
+- scaMethods[].name and chosenScaMethod.name are required in v2;
+- added in links: `scaRedirect`, `scaOAuth`, `confirmation`, 
+`startAuthorisationWithTransactionAuthorisation`, `self`, `status`, `scaStatus`, `encryptionCertificates`, < * >;
+- **401 response** - [AIS / PIS / PIIS part - Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-response-extended)
+- **400,401, 403, 404,405, 409 response**
+  - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
+  - [See here - Error response changes - PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-400-401-403-404-response-changed---pis); **405 response also included in Error 400, 401, 403, 404 response changed - PIS part**
+  - [See here - Parameter _links part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
+- **429 response** - deleted;
 
 ---
 
