@@ -142,7 +142,7 @@ messageCode_PushAisSpecific{...}
 - added new enum value for the path parameter **payment-product**: pain.001-proprietary-credit-transfers 
 #### 🧩 Header
 - [See here AIS/PIS/PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
-- [See here Added PIS part **200 response is not included**](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-added-pis)
+- [See here Added PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-added-pis) **200 response is not included**
 PSU-IP-Address, PSU-IP-Port, PSU-Accept, PSU-Accept-Charset, PSU-Accept-Encoding, PSU-Accept-Language, PSU-User-Agent, PSU-Http-Method, PSU-Device-ID, PSU-Geo-Location - deleted;
 
 
@@ -176,7 +176,7 @@ PeriodicPayment_generic{...}; (whole response is changed)
 
 #### 🧩 Header
 - [See here AIS/PIS/PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
-- [See here Added PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-added-pis)
+- [See here PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#pis)
 ``` TPP-Redirect-URI ->Client-Redirect-URI,
 TPP-Nok-Redirect-URI->Client-Nok-Redirect-URI, 
 TPP-Explicit-Authorisation-Preferred-> Client-Explicit-Authorisation-Preferred(async authorization);
@@ -206,18 +206,17 @@ PSU-ID, PSU-ID-Type, PSU-Corporate-ID, PSU-Corporate-ID-Type, Client-Notificatio
 **Endpoint**: `/v2/bulk-payments/{payment-product}/{paymentId}/extended-status`
 
 #### 🧩 Header
-C2, C3 C4, C7, C8 from the sheet:common;
-PSU-IP-Address, PSU-IP-Port, PSU-Accept, PSU-Accept-Charset, PSU-Accept-Encoding, PSU-Accept-Language, PSU-User-Agent, PSU-Http-Method, PSU-Device-ID, PSU-Geo-Location deleted;
-
-**See common:** [C2](common.md#headers), [C3](common.md#headers), [C4](common.md#headers), [C7](common.md#headers), [C8](common.md#headers)
+- [See here AIS/PIS/PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here Added PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-added-pis)
+- PSU-IP-Address, PSU-IP-Port, PSU-Accept, PSU-Accept-Charset, PSU-Accept-Encoding, PSU-Accept-Language, PSU-User-Agent, PSU-Http-Method, PSU-Device-ID, PSU-Geo-Location deleted;
 
 #### 🟦 Response
-200 response - added new values for reasonCode(enum) and statusReasonInformationCode(enum):AM21,BEXX;
-reasonProperty description changed: If an ISO Code is available it should be used instead of Proprietary Reasons;
-originalTransactionInformationAndStatus.transactionStatus added value:PRES;
-added in _links scaOAuth, confirmation, startAuthorisation, startAuthorisationWithPsuIdentification, startAuthorisationWithPsuAuthentication, startAuthorisationWithEncryptedPsuAuthentication, startAuthorisationWithAuthenticationMethodSelection, startAuthorisationWithTransactionAuthorisation, status, scaStatus, encryptionCertificates; 
-apiClientMessages.code extended from string to: 
-code*	{
+- **200 response** - added new values for reasonCode(enum) and statusReasonInformationCode(enum):`AM21`, `BEXX`;
+- reasonProperty description changed: If an ISO Code is available it should be used instead of Proprietary Reasons;
+- originalTransactionInformationAndStatus.transactionStatus added value: `PRES`;
+- added in _links `scaOAuth`, `confirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `startAuthorisationWithPsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `startAuthorisationWithTransactionAuthorisation`, `status`, `scaStatus`, `encryptionCertificates`; 
+- apiClientMessages.code extended from string to: 
+``` code*	{
 oneOf ->	
 messageCode_ServiceUnspecific{...}
 messageCode_PisSpecific{...}
@@ -226,11 +225,13 @@ messageCode_PiisSpecific{...}
 messageCode_SigningBasketSpecific{...}
 messageCode_PushAisSpecific{...}
 };
-400, 401,403,404 response -E2, E3, E4   from the sheet:common;
-401 response - E6 from the sheet:common;
-405, 409 response  - E5 from the sheet:common;
-429 response deleted;
-
+```
+- **401 response** - [AIS / PIS / PIIS part - Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-response-extended)
+- **400,401, 403, 404,405, 409 response**
+  - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
+  - [See here - Error response changes - PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-400-401-403-404-response-changed---pis);
+  - [See here - Parameter _links part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
+- **429 response** - deleted;
 **See common:** [changed:](common.md#headers), [Code](common.md#headers), [confirmation](common.md#headers), [code*](common.md#headers)
 
 ---
