@@ -239,29 +239,26 @@ messageCode_PushAisSpecific{...}
 ### v1-funds-confirmations
 **Group**: PIIS  
 **Method**: `POST`  
-**Endpoint**: `v1/funds-confirmations`
+**Endpoint v2**: `v2/funds-confirmations`
+**Endpoint v1**: `v1/funds-confirmations`
 
 #### 🧩 Header
-C9,C10,C11, C13, C14 from the sheet:common;
-Body-Sig-Profile, Body-Enc-Profile, Body-Enc-List, Consent-ID added;
-
-**See common:** [C9C10C11](common.md#headers), [C13](common.md#headers), [C14](common.md#headers), [Consent-ID](common.md#headers)
+- [See here AIS/PIS/PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#piis)
+- Body-Sig-Profile, Body-Enc-Profile, Body-Enc-List, Consent-ID added;
 
 #### 🧾 Request
-account.cashAccountType deleted;
-typeCode, typeProprietary, proxy, name, owner and servicer(with many additional fields)  added;
-account.other.schemeNameCode is extended with enum values(AIIN, BBAN, CUID, UPIC);
+- `account.cashAccountType` deleted;
+- `typeCode`, `typeProprietary`, `proxy`, `name`, `owner` and `servicer` (with many additional fields)  added;
+- `account.other.schemeNameCode` is extended with enum values: `AIIN`, `BBAN`, `CUID`, `UPIC`;
 
 #### 🟦 Response
-400 response - E9,E10 from the sheet:common;
-deleted value for code.enum:SESSIONS_NOT_SUPPORTED;
-added values for code.enum:CARD_INVALID, NO_PIIS_ACTIVATION
-401 response - E13  from the sheet:common;
-400,401,403,404,405 response - E11 from the sheet:common;
-401 ,403, 404, 405, 409 response  -  E9,E12 from the sheet:common;
-429 response deleted
-
-**See common:** [codeenum:SESSIONS_NOT_SUPPORTED](common.md#headers), [codeenum:CARD_INVALID](common.md#headers)
+- [See here the Error response extended and Name changed parts in AIS/PIS/PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/master/common.md#piis-1)
+- **400,401,403,404,405 response** - [See here the Parameter _links part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/master/common.md#-parameter-_links)
+- deleted value for code.enum: `SESSIONS_NOT_SUPPORTED`;
+- added values for code.enum: `CARD_INVALID`, `NO_PIIS_ACTIVATION`
+- **429 response** deleted
 
 ---
 
