@@ -62,7 +62,7 @@ Grouped by type of change and API group.
  
 ### PIIS 
 #### 🔸 Error response changed - PIS
-- The response with error code `400`, `401`, `403`, `404`:
+- The response with error code `400`:
   - `apiClientMessage.code(enum)` is divided into two parts: `MessageCode_ServiceUnspecific_40X(enum)` and `MessageCode_PisSpecific_40X(enum)`
 - In the response with error code `401`, `403`, `404`, `405`, `409`:
   - `apiClientMessage.code` have one part `MessageCode_ServiceUnspecific_40X(enum)`;
