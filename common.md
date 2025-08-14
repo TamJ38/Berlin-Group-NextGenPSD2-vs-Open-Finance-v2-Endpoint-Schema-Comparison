@@ -54,9 +54,10 @@ Grouped by type of change and API group.
   - `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `< * >`
 
 ### PIS 
-#### 🔸 Error response changed - PIS
+#### 🔸 Error `400`, `401`, `403`, `404` response changed - PIS
 - In the response with error code `400`, `401`, `403`, `404`:
   - `apiClientMessage.code(enum)` is divided into two parts: `MessageCode_ServiceUnspecific_40X(enum)` and `MessageCode_PisSpecific_40X(enum)`
+#### 🔸 Error `405`, `409` response changed - PIS
 - In the response with error code `405`, `409`:
   - `apiClientMessage.code(enum)` has one part MessageCode_ServiceUnspecific_40X(enum); 
  
