@@ -105,7 +105,7 @@ Grouped by type of change and API group.
     `typeCode`, `typeProprietary`, `proxy`, `name`, `owner`, `servicer(with many additional fields) `
   - `account.other.schemeNameCode` → extended with enum values:  
     `AIIN`, `BBAN`, `CUID`, `UPIC`
-- #### 🔸 For every type of transaction in transactions:
+- #### 🔸 Added fields for every type of transaction in transactions:
   **Added**: 
   - **New mandatory field** for:
     `creditorAgent`, `debtorAgent` → `financialInstitutionId`
@@ -113,7 +113,7 @@ Grouped by type of change and API group.
     `name`, `identification`
   - Fields for `remittanceInformationStructured`:
     `referredDocumentInformation`, `creditorReferenceInformation`, `additionalRemittanceInformation`
-- #### 🔸 for every type of transaction in transactions:
+- #### 🔸 Additional changes for every type of transaction in transactions:
   - `additionalInformation` → renamed to `additionalTransactionInformation`
   - New fields added:
     `additionalTransactionInformationStructured`
