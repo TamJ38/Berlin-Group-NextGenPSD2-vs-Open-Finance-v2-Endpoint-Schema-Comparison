@@ -34,15 +34,15 @@ This file contains detailed changes for each modified endpoint. Where applicable
 Path changed from /v1/{payment-service}/{payment-product} to /v2/payments/{payment-product}
 
 #### 🧩 Header
-[See - AIS/PIS/PIIS and PIS Part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-headers)  from the file: common.md;
+[See - AIS/PIS/PIIS and PIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-headers)  from the file: common.md;
 - **Additional changes are:**
-- `Body-Sig-Profile`, `Body-Enc-Profile`, `Body-Enc-List`, `Content-Type` - added;
-- `TPP-Redirect-URI` ->`Client-Redirect-URI`,
-- `TPP-Nok-Redirect-URI`->`Client-Nok-Redirect-URI`,
-- `TPP-Explicit-Authorisation-Preferred`-> `Client-Explicit-Authorisation-Preferred( async authorization)`,
-- `TPP-Notification-UR`I->`Client-Notification-URI`,
-- `TPP-Notification-Content-Preferred`->`Client-Notification-Content-Preferred`
-- `TPP-Brand-Logging-Information`->`Client-Brand-Logging-Information`
+  - `Body-Sig-Profile`, `Body-Enc-Profile`, `Body-Enc-List`, `Content-Type` - added;
+  - `TPP-Redirect-URI` ->`Client-Redirect-URI`,
+  - `TPP-Nok-Redirect-URI`->`Client-Nok-Redirect-URI`,
+  - `TPP-Explicit-Authorisation-Preferred`-> `Client-Explicit-Authorisation-Preferred( async authorization)`,
+  - `TPP-Notification-URI`->`Client-Notification-URI`,
+  - `TPP-Notification-Content-Preferred`->`Client-Notification-Content-Preferred`
+  - `TPP-Brand-Logging-Information`->`Client-Brand-Logging-Information`
 
 #### 🧾 Request
 - **v1 request-body**: 	
@@ -75,7 +75,7 @@ Path changed from /v1/{payment-service}/{payment-product} to /v2/payments/{payme
   - added _links value:encryptionCertificates;
 - **400,401, 403, 404,405, 409 response**
   - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
-  - [See here - Error response changed - PIS](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#pis-1);
+  - [See here - Error response changed - PIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#pis-1);
   - [See here - Parameter _links](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-parameter-_links);
 - **401 response** -[AIS / PIS / PIIS part - Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-error-response-extended);
 - **429 response** - removed;
@@ -90,7 +90,7 @@ Path changed from /v1/{payment-service}/{payment-product} to /v2/payments/{payme
 **Endpoint v1**: `v1/{payment-service}/{payment-product}/{payment-id}/status`
 
 #### 🧩 Header
-- [See here AIS / PIS / PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#ais--pis--piis);
+- [See here AIS / PIS / PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#ais--pis--piis);
 - [See here Added PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-added-pis);
 - `PSU-IP-Address`, `PSU-IP-Port, PSU-Accept`, `PSU-Accept-Charset`, `PSU-Accept-Encoding`, `PSU-Accept-Language`, `PSU-User-Agent`, `PSU-Http-Method`, `PSU-Device-ID`, `PSU-Geo-Location` - deleted;
 
@@ -126,7 +126,7 @@ messageCode_PushAisSpecific{...}
 - **401 response** - [AIS / PIS / PIIS part - Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-response-extended)
 - **400,401, 403, 404,405, 409 response**
   - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
-  - [See here - Error response changes - PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-400-401-403-404-response-changed---pis);
+  - [See here - Error response changes - PIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-400-401-403-404-response-changed---pis);
   - [See here - Parameter _links part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
 - **429 response** - deleted;
 
@@ -141,8 +141,8 @@ messageCode_PushAisSpecific{...}
 #### 📬 Path
 - added new enum value for the path parameter **payment-product**: pain.001-proprietary-credit-transfers 
 #### 🧩 Header
-- [See here AIS/PIS/PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
-- [See here Added PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-added-pis) **200 response is not included**
+- [See here AIS/PIS/PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here Added PIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-added-pis) **200 response is not included**
 PSU-IP-Address, PSU-IP-Port, PSU-Accept, PSU-Accept-Charset, PSU-Accept-Encoding, PSU-Accept-Language, PSU-User-Agent, PSU-Http-Method, PSU-Device-ID, PSU-Geo-Location - deleted;
 
 
@@ -159,10 +159,10 @@ SinglePayment_generic{...}
 BulkPayment_generic{...}
 PeriodicPayment_generic{...}; (whole response is changed)
 ```
-- **401 response** - [AIS / PIS / PIIS part - Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-response-extended)
+- **401 response** - [AIS / PIS / PIIS section - Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-response-extended)
 - **400,401, 403, 404,405, 409 response**
   - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
-  - [See here - Error response changes - PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-400-401-403-404-response-changed---pis);
+  - [See here - Error response changes - PIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-400-401-403-404-response-changed---pis);
   - [See here - Parameter _links part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
 - **429 response** - deleted;
 
@@ -175,8 +175,8 @@ PeriodicPayment_generic{...}; (whole response is changed)
 **Endpoint v1**: `v1/{payment-service}/{payment-product}/{payment-id}`
 
 #### 🧩 Header
-- [See here AIS/PIS/PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
-- [See here PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#pis)
+- [See here AIS/PIS/PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here PIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#pis)
 ``` TPP-Redirect-URI ->Client-Redirect-URI,
 TPP-Nok-Redirect-URI->Client-Nok-Redirect-URI, 
 TPP-Explicit-Authorisation-Preferred-> Client-Explicit-Authorisation-Preferred(async authorization);
@@ -187,14 +187,14 @@ PSU-ID, PSU-ID-Type, PSU-Corporate-ID, PSU-Corporate-ID-Type, Client-Notificatio
 #### 🟦 Response
 - **202 Received** changed to **202 Accepted**;
 - **202 response** 
-- added ENUM value: PRES in transactionStatus;  
-- scaMethods[].name and chosenScaMethod.name are required in v2;
-- added in links: `scaRedirect`, `scaOAuth`, `confirmation`, 
+  - added ENUM value: PRES in transactionStatus;  
+  - scaMethods[].name and chosenScaMethod.name are required in v2;
+  - added in links: `scaRedirect`, `scaOAuth`, `confirmation`, 
 `startAuthorisationWithTransactionAuthorisation`, `self`, `status`, `scaStatus`, `encryptionCertificates`, < * >;
-- **401 response** - [AIS / PIS / PIIS part - Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-response-extended)
+- **401 response** - [AIS / PIS / PIIS section - Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-response-extended)
 - **400,401, 403, 404,405, 409 response**
   - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
-  - [See here - Error response changes - PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-400-401-403-404-response-changed---pis); **405 response also included in Error 400, 401, 403, 404 response changed - PIS part**
+  - [See here - Error response changes - PIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-400-401-403-404-response-changed---pis); **405 response also included in Error 400, 401, 403, 404 response changed - PIS part**
   - [See here - Parameter _links part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
 - **429 response** - deleted;
 
@@ -203,19 +203,20 @@ PSU-ID, PSU-ID-Type, PSU-Corporate-ID, PSU-Corporate-ID-Type, Client-Notificatio
 ### v2-bulk-payments-payment-product-paymentid-extended-status
 **Group**: PIS  
 **Method**: `GET`  
-**Endpoint**: `/v2/bulk-payments/{payment-product}/{paymentId}/extended-status`
+**Endpoint v2**: `/v2/bulk-payments/{payment-product}/{paymentId}/extended-status`
+**Endpoint v1**: `/v2/bulk-payments/{payment-product}/{paymentId}/extended-status`
 
 #### 🧩 Header
-- [See here AIS/PIS/PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here AIS/PIS/PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
 - [See here Added PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-added-pis)
 - PSU-IP-Address, PSU-IP-Port, PSU-Accept, PSU-Accept-Charset, PSU-Accept-Encoding, PSU-Accept-Language, PSU-User-Agent, PSU-Http-Method, PSU-Device-ID, PSU-Geo-Location deleted;
 
 #### 🟦 Response
 - **200 response** - added new values for reasonCode(enum) and statusReasonInformationCode(enum):`AM21`, `BEXX`;
-- reasonProperty description changed: If an ISO Code is available it should be used instead of Proprietary Reasons;
-- originalTransactionInformationAndStatus.transactionStatus added value: `PRES`;
-- added in _links `scaOAuth`, `confirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `startAuthorisationWithPsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `startAuthorisationWithTransactionAuthorisation`, `status`, `scaStatus`, `encryptionCertificates`; 
-- apiClientMessages.code extended from string to: 
+  - reasonProperty description changed: If an ISO Code is available it should be used instead of Proprietary Reasons;
+  - originalTransactionInformationAndStatus.transactionStatus added value: `PRES`;
+  - added in _links `scaOAuth`, `confirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `startAuthorisationWithPsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `startAuthorisationWithTransactionAuthorisation`, `status`, `scaStatus`, `encryptionCertificates`; 
+  - apiClientMessages.code extended from string to: 
 ``` code*	{
 oneOf ->	
 messageCode_ServiceUnspecific{...}
@@ -226,13 +227,13 @@ messageCode_SigningBasketSpecific{...}
 messageCode_PushAisSpecific{...}
 };
 ```
-- **401 response** - [AIS / PIS / PIIS part - Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-response-extended)
+- **401 response** - [AIS / PIS / PIIS section - Error response extended](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-response-extended)
 - **400,401, 403, 404,405, 409 response**
   - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
   - [See here - Error response changes - PIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-error-400-401-403-404-response-changed---pis);
   - [See here - Parameter _links part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
 - **429 response** - deleted;
-**See common:** [changed:](common.md#headers), [Code](common.md#headers), [confirmation](common.md#headers), [code*](common.md#headers)
+
 
 ---
 
@@ -243,8 +244,8 @@ messageCode_PushAisSpecific{...}
 **Endpoint v1**: `v1/funds-confirmations`
 
 #### 🧩 Header
-- [See here AIS/PIS/PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
-- [See here PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#piis)
+- [See here AIS/PIS/PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#piis)
 - Body-Sig-Profile, Body-Enc-Profile, Body-Enc-List, Consent-ID added;
 
 #### 🧾 Request
@@ -253,11 +254,12 @@ messageCode_PushAisSpecific{...}
 - `account.other.schemeNameCode` is extended with enum values: `AIIN`, `BBAN`, `CUID`, `UPIC`;
 
 #### 🟦 Response
-- [See here the Error response extended and Name changed parts in AIS/PIS/PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here the Error response extended and Name changed parts in AIS/PIS/PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
 - [See here PIIS part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/master/common.md#piis-1)
-- **400,401,403,404,405 response** - [See here the Parameter _links part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/master/common.md#-parameter-_links)
-- deleted value for code.enum: `SESSIONS_NOT_SUPPORTED`;
-- added values for code.enum: `CARD_INVALID`, `NO_PIIS_ACTIVATION`
+- **400,401,403,404,405 response**
+  - [See here the Parameter _links part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/master/common.md#-parameter-_links)
+  - deleted value for code.enum: `SESSIONS_NOT_SUPPORTED`;
+  - added values for code.enum: `CARD_INVALID`, `NO_PIIS_ACTIVATION`
 - **429 response** deleted
 
 ---
@@ -265,218 +267,263 @@ messageCode_PushAisSpecific{...}
 ### v2-accounts
 **Group**: AIS  
 **Method**: `GET`  
-**Endpoint**: `v2/accounts`
+**Endpoint v2**: `v2/accounts`
+**Endpoint v1**: `v1/accounts`
 
 #### 🧩 Header
-C15, C16, C17,C18,C19, C20 from the sheet:common;
+- [See here AIS/PIS/PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#ais)
 
-**See common:** [C15](common.md#headers), [C16](common.md#headers), [C17C18C19](common.md#headers), [C20](common.md#headers)
 
 #### 🟦 Response
-200 response - E15, E16 from the sheet:common;
-400 response - E23 from the sheet:common;
-400, 401 ,403, 404, 405, 409 response  -  E17, E18 from the sheet:common;
-401 response - E21 from the sheet:common;
-400, 401, 404 response -  E19 from the sheet:common;
- 403, 405, 409 response  E20 from the sheet:common;
-404 response - E22 from the sheet:common;
+- **200 response**
+  - [See here the part Account object changes in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-account-object-changes)
+
+- **400 response** - [See here the part In the response with error code 400 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400)
+- **400, 401 ,403, 404, 405, 409 response**
+  - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
+  - [See here - Parameter _links part AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
+- **400, 401, 404 response** -  [See here the part In the response with error code 400, 401, 404 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400-401-404);
+- **403, 405, 409 response**  - [See here the part In the response with error code 403, 405, 409 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-403-405-409)
+- **404 response** - [See here the part In the response with error code 403 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-404);
+- **401 response** - [See here the part Error response extended in AIS / PIS / PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-error-response-extended)
 
 ---
 
 ### v2-accounts-account-id
 **Group**: AIS  
 **Method**: `GET`  
-**Endpoint**: `v2/accounts/{account-id}`
+**Endpoint v2**: `v2/accounts/{account-id}`
+**Endpoint v1**: `v1/accounts/{account-id}`
 
 #### 🧩 Header
-C15, C16, C17, C18, C19, C20 from the sheet:common;
+- [See here AIS/PIS/PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#ais)
 
-**See common:** [C15](common.md#headers), [C16](common.md#headers), [C17](common.md#headers), [C18](common.md#headers), [C19](common.md#headers), [C20](common.md#headers)
 
 #### 🟦 Response
-200 response - E15, E16 from the sheet:common;
-400 response - E23 from the sheet:common;
-400, 401, 404 response -  E19 from the sheet:common;
-  403, 405, 409 response  - E20 from the sheet:common;
-401 response -  E21 from the sheet:common;
-404 response - E22 from the sheet:common;
-400, 401 ,403, 404, 405, 409 response  -  E17, E18 from the sheet:common;
+- **200 response**
+  - [See here the part Account object changes in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-account-object-changes)
+
+- **400 response** - [See here the part In the response with error code 400 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400)
+- **400, 401 ,403, 404, 405, 409 response**
+  - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
+  - [See here - Parameter _links part AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
+- **400, 401, 404 response** -  [See here the part In the response with error code 400, 401, 404 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400-401-404);
+- **403, 405, 409 response**  - [See here the part In the response with error code 403, 405, 409 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-403-405-409)
+- **404 response** - [See here the part In the response with error code 403 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-404);
+- **401 response** - [See here the part Error response extended in AIS / PIS / PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-error-response-extended)
 
 ---
 
 ### v2-accounts-account-id-balances
 **Group**: AIS  
 **Method**: `GET`  
-**Endpoint**: `v2/accounts/{account-id}/balances`
+**Endpoint v2**: `v2/accounts/{account-id}/balances`
+**Endpoint v1**: `v1/accounts/{account-id}/balances`
 
 #### 🧩 Header
-C15, C16, C17, C18, C19, C20 from the sheet:common;
+- [See here AIS/PIS/PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#ais)
 
-**See common:** [C15](common.md#headers), [C16](common.md#headers), [C17](common.md#headers), [C18](common.md#headers), [C19](common.md#headers), [C20](common.md#headers)
 
 #### 🟦 Response
-200 response - account.cashAccountType deleted;
-typeCode, typeProprietary, proxy, name, owner and servicer(with many additional fields)  added in account;
-account.other.schemeNameCode is extended with enum values(AIIN, BBAN, CUID, UPIC);
-400 response -  E23 from the sheet:common;
-400, 401, 404 response -  E19 from the sheet:common;
-401 response - E21 from the sheet:common;
-404 response - E22 from the sheet:common;
-403, 405, 409 response  - E20 from the sheet:common;
-400, 401 ,403, 404, 405, 409 response  -  E17, E18 from the sheet:common;
-
-**See common:** [CUID](common.md#headers)
+- **200 response**
+  - `account.cashAccountType` deleted;
+  - `typeCode`, `typeProprietary`, `proxy`, `name`, `owner` and `servicer(with many additional fields)`  added in account;
+  - `account.other.schemeNameCode` is extended with enum values: `AIIN`, `BBAN`, `CUID`, `UPIC`);
+- **400 response** - [See here the part In the response with error code 400 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400)
+- **401 response** - [See here the part Error response extended in AIS / PIS / PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-error-response-extended)
+- **400, 401, 404 response** -  [See here the part In the response with error code 400, 401, 404 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400-401-404);
+- **404 response** - [See here the part In the response with error code 403 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-404);
+- **403, 405, 409 response**  - [See here the part In the response with error code 403, 405, 409 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-403-405-409)
+- **400, 401 ,403, 404, 405, 409 response**
+  - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
+  - [See here - Parameter _links part AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
 
 ---
 
 ### v2-accounts-account-id-transactions
 **Group**: AIS  
 **Method**: `GET`  
-**Endpoint**: `v2/accounts/{account-id}/transactions`
+**Endpoint v2**: `v2/accounts/{account-id}/transactions`
+**Endpoint v1**: `v1/accounts/{account-id}/transactions`
 
 #### 🧩 Header
-C15, C16, C17, C18, C19, C20 from the sheet:common;
-
-**See common:** [C15](common.md#headers), [C16](common.md#headers), [C17](common.md#headers), [C18](common.md#headers), [C19](common.md#headers), [C20](common.md#headers)
+- [See here AIS/PIS/PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#ais)
 
 #### 🟦 Response
-200 response -E26 from the sheet:common;
-account is mandatory; 
-field download in _links is not required
-creditorAccount and debtorAccount - E26 from the sheet:common;
-for every type of transaction in transactions:
-E24,E25,E27, E28 from the sheet:common;
+- **200 response** -E26 from the sheet:common;
+  - account is mandatory; 
+  - field `download` in _links is not required
+  - `creditorAccount` and `debtorAccount` - [See here the part Account structure enriched in the AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-account-structure-enriched)
+  - for every type of transaction in transactions:
+    - [See here the part Transaction reference structure changes in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-transaction-reference-structure-changes)
+    - [See here the part Transaction fields moved/deleted in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-transaction-fields-moveddeleted-for-every-type-of-transaction-in-transactions)
+    - [See here the part Added fields for every type of transaction in transactions in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-added-fields-for-every-type-of-transaction-in-transactions)
+    - [See here the part Additional changes for every type of transaction in transactions in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-additional-changes-for-every-type-of-transaction-in-transactions)
 
 
-for every entry in entry details: E25,E27,E18 from the sheet:common; 
- added enum values for purpose code;
-transactions._links - E18 from the sheet:common; 
-400 response - E23 from the sheet:common;
-400, 401, 404 response -  E19 from the sheet:common;
-  403, 405, 409 response  - E20 from the sheet:common;
-401 response -  E21 from the sheet:common;
-404 response - E22 from the sheet:common;
-400, 401 ,403, 404, 405, 409 response  -  E17, E18 from the sheet:common;
-
-**See common:** [creditorAccount](common.md#headers), [code](common.md#headers)
+  - for every entry in entry details:
+    - [See here the part Transaction fields moved/deleted in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-transaction-fields-moveddeleted-for-every-type-of-transaction-in-transactions)
+  - [See the part Parameter _links in AIS / PIS / PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-parameter-_links)
+  - added enum values for `purpose code`;
+  - `transactions._links` - [See the part Parameter _links in AIS / PIS / PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-parameter-_links)
+- **400 response** - [See here the part In the response with error code 400 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400)
+- **400, 401, 404 response** -  [See here the part In the response with error code 400, 401, 404 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400-401-404);
+- **403, 405, 409 response**  - [See here the part In the response with error code 403, 405, 409 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-403-405-409)
+- **401 response** - [See here the part Error response extended in AIS / PIS / PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-error-response-extended)
+- **404 response** - [See here the part In the response with error code 403 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-404);
+- **400, 401 ,403, 404, 405, 409 response**
+  - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
+  - [See here - Parameter _links part AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
 
 ---
 
 ### v2-accounts-account-id-transactions-transaction-id
 **Group**: AIS  
 **Method**: `GET`  
-**Endpoint**: `v2/accounts/{account-id}/transactions/{transaction-id}`
+**Endpoint v2**: `v2/accounts/{account-id}/transactions/{transaction-id}`
+**Endpoint v1**: `v1/accounts/{account-id}/transactions/{transaction-id}`
 
 #### 🧩 Header
-C15, C16, C17, C18, C19, C20 from the sheet:common;
+- [See here AIS/PIS/PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#ais)
 
-**See common:** [C15](common.md#headers), [C16](common.md#headers), [C17](common.md#headers), [C18](common.md#headers), [C19](common.md#headers), [C20](common.md#headers)
 
 #### 🟦 Response
-200 response - E24,E25,E27,E28 from the sheet:common;
-transactions._links - E18 from the sheet:common;
-for every entry in entry details: E25,E27,E18 from the sheet:common, added enum values for purpose code;
-400 response - E23 from the sheet:common;
-400, 401, 404 response -  E19 from the sheet:common;
-  403, 405, 409 response  - E20 from the sheet:common;
-401 response -  E21 from the sheet:common;
-404 response - E22 from the sheet:common;
-400, 401 ,403, 404, 405, 409 response  -  E17, E18 from the sheet:common;
+- **200 response**
+  - [See here the part Transaction reference structure changes in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-transaction-reference-structure-changes)
+  - [See here the part Transaction fields moved/deleted in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-transaction-fields-moveddeleted-for-every-type-of-transaction-in-transactions)
+  - [See here the part Added fields for every type of transaction in transactions in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-added-fields-for-every-type-of-transaction-in-transactions)
+  - [See here the part Additional changes for every type of transaction in transactions in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-additional-changes-for-every-type-of-transaction-in-transactions)
+  - for every entry in entry details:
+    - [See here the part Transaction fields moved/deleted in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-transaction-fields-moveddeleted-for-every-type-of-transaction-in-transactions)
+    - [See the part Parameter _links in AIS / PIS / PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-parameter-_links)
+  - added enum values for `purpose code`;
+  - `transactions._links` - [See the part Parameter _links in AIS / PIS / PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-parameter-_links)
+- **400 response** - [See here the part In the response with error code 400 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400)
+- **400, 401, 404 response** -  [See here the part In the response with error code 400, 401, 404 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400-401-404);
+- **403, 405, 409 response**  - [See here the part In the response with error code 403, 405, 409 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-403-405-409)
+- **401 response** - [See here the part Error response extended in AIS / PIS / PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-error-response-extended)
+- **404 response** - [See here the part In the response with error code 403 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-404);
+- **400, 401 ,403, 404, 405, 409 response**
+  - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
+  - [See here - Parameter _links part AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
 
-**See common:** [code](common.md#headers)
 
 ---
 
 ### v2-card-accounts
 **Group**: AIS  
 **Method**: `GET`  
-**Endpoint**: `/v2/card-accounts`
+**Endpoint v2**: `/v2/card-accounts`
+**Endpoint v1**: `/v1/card-accounts`
 
 #### 🧩 Header
-C15, C16, C17, C18, C19, C20 from the sheet:common;
+- [See here AIS/PIS/PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#ais)
 
-**See common:** [C15](common.md#headers), [C16](common.md#headers), [C17](common.md#headers), [C18](common.md#headers), [C19](common.md#headers), [C20](common.md#headers)
 
 #### 🟦 Response
-200 response - resourceId is mandatory; _links In account - E16  from the sheet:common;
-400 response - E23 from the sheet:common;
-400, 401, 404 response -  E19 from the sheet:common;
-  403, 405, 409 response  - E20 from the sheet:common;
-401 response -  E21 from the sheet:common;
-404 response - E22 from the sheet:common;
-400, 401 ,403, 404, 405, 409 response  -  E17, E18 from the sheet:common;
+- **200 response**
+  - `resourceId` is mandatory;
+  - _links In account - [See here the informations for _links extended from the part Account object changes in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-account-object-changes)
+- **400 response** - [See here the part In the response with error code 400 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400)
+- **400, 401, 404 response** -  [See here the part In the response with error code 400, 401, 404 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400-401-404);
+- **403, 405, 409 response**  - [See here the part In the response with error code 403, 405, 409 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-403-405-409)
+- **401 response** - [See here the part Error response extended in AIS / PIS / PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-error-response-extended)
+- **404 response** - [See here the part In the response with error code 403 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-404);
+- **400, 401 ,403, 404, 405, 409 response**
+- [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
+- [See here - Parameter _links part AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
+
 
 ---
 
 ### v2-card-accounts-account-id
 **Group**: AIS  
 **Method**: `GET`  
-**Endpoint**: `/v2/card-accounts/{account-id}`
+**Endpoint v2**: `v2/card-accounts/{account-id}`
+**Endpoint v1**: `v1/card-accounts/{account-id}`
 
 #### 🧩 Header
-C15, C16, C17, C18, C19, C20 from the sheet:common;
+- [See here AIS/PIS/PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#ais)
 
-**See common:** [C15](common.md#headers), [C16](common.md#headers), [C17](common.md#headers), [C18](common.md#headers), [C19](common.md#headers), [C20](common.md#headers)
+
 
 #### 🟦 Response
-200 response - resourceId is mandatory; _links In account - E16  from the sheet:common;
-400 response - E23 from the sheet:common;
-400, 401, 404 response -  E19 from the sheet:common;
-  403, 405, 409 response  - E20 from the sheet:common;
-401 response -  E21 from the sheet:common;
-404 response - E22 from the sheet:common;
-400, 401 ,403, 404, 405, 409 response  -  E17, E18 from the sheet:common;
+- **200 response**
+  - `resourceId` is mandatory;
+  - _links In account - [See here the informations for _links extended from the part Account object changes in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-account-object-changes)
+- **400 response** - [See here the part In the response with error code 400 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400)
+- **400, 401, 404 response** -  [See here the part In the response with error code 400, 401, 404 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400-401-404);
+- **403, 405, 409 response**  - [See here the part In the response with error code 403, 405, 409 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-403-405-409)
+- **401 response** - [See here the part Error response extended in AIS / PIS / PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-error-response-extended)
+- **404 response** - [See here the part In the response with error code 403 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-404);
+- **400, 401 ,403, 404, 405, 409 response**
+  - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
+  - [See here - Parameter _links part AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
 
 ---
 
 ### v2-card-accounts-account-id-balances
 **Group**: AIS  
 **Method**: `GET`  
-**Endpoint**: `/v2/card-accounts/{account-id}/balances`
+**Endpoint v2**: `v2/card-accounts/{account-id}/balances`
+**Endpoint v1**: `v1/card-accounts/{account-id}/balances`
 
 #### 🧩 Header
-C15, C16, C17, C18, C19, C20 from the sheet:common;
+- [See here AIS/PIS/PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#ais)
 
-**See common:** [C15](common.md#headers), [C16](common.md#headers), [C17](common.md#headers), [C18](common.md#headers), [C19](common.md#headers), [C20](common.md#headers)
 
 #### 🟦 Response
-200 response
-cardAccount - E26 from the sheet:common; cardAccount is required;
-400 response - E23 from the sheet:common;
-400, 401, 404 response -  E19 from the sheet:common;
-  403, 405, 409 response  - E20 from the sheet:common;
-401 response -  E21 from the sheet:common;
-404 response - E22 from the sheet:common;
-400, 401 ,403, 404, 405, 409 response  -  E17, E18 from the sheet:common;
+- **200 response**
+  - `cardAccount` - [See the part Account structure enriched from the AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-account-structure-enriched); 
+  - `cardAccount` is required;
+- **400 response** - [See here the part In the response with error code 400 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400)
+- **400, 401, 404 response** -  [See here the part In the response with error code 400, 401, 404 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400-401-404);
+- **403, 405, 409 response**  - [See here the part In the response with error code 403, 405, 409 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-403-405-409)
+- **401 response** - [See here the part Error response extended in AIS / PIS / PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-error-response-extended)
+- **404 response** - [See here the part In the response with error code 403 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-404);
+- **400, 401 ,403, 404, 405, 409 response**
+  - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
+  - [See here - Parameter _links part AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
 
-**See common:** [cardAccount](common.md#headers), [cardAccount](common.md#headers)
 
 ---
 
 ### v2-card-accounts-account-id-transactions
 **Group**: AIS  
 **Method**: `GET`  
-**Endpoint**: `/v2/card-accounts/{account-id}/transactions`
+**Endpoint v2**: `/v2/card-accounts/{account-id}/transactions`
+**Endpoint v1**: `/v1/card-accounts/{account-id}/transactions`
 
 #### 🧩 Header
-C15, C16, C17, C18, C19, C20 from the sheet:common;
+- [See here AIS/PIS/PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis)
+- [See here AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#ais)
 
-**See common:** [C15](common.md#headers), [C16](common.md#headers), [C17](common.md#headers), [C18](common.md#headers), [C19](common.md#headers), [C20](common.md#headers)
 
 #### 🟦 Response
-200 response
-cardAccount - E26 from the sheet:common; cardAccount is required;
-field download in _links is not required;
-cardTransactions - cardAcceptorAddress field for every transactions(booked,..): department, subDepartment,buildingName,floor, postBox, room, postCode, townName, townLocationName, districtName, countrySubDivision are deleted;
-_links in cardTransactios are extended - E18 from the sheet:common;
-400 response - E23 from the sheet:common;
-400, 401, 404 response -  E19 from the sheet:common;
-  403, 405, 409 response  - E20 from the sheet:common;
-401 response -  E21 from the sheet:common;
-404 response - E22 from the sheet:common;
-400, 401 ,403, 404, 405, 409 response  -  E17, E18 from the sheet:common;
+- **200 response**
+  - `cardAccount` - [See the part Account structure enriched from the AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-account-structure-enriched); 
+  - `cardAccount` is required;
+  - field `download` in `_links` is not required;
+  - cardTransactions - `cardAcceptorAddress` field for every transactions(booked,..): `department`, `subDepartment`,`buildingName`, `floor`, `postBox`, `room`, `postCode`, `townName`, `townLocationName`, `districtName`, `countrySubDivision` are deleted;
+  - `_links` in cardTransactios are extended - [See here - Parameter _links part from AIS / PIS / PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/edit/dev/common.md#-parameter-_links);
+- **400 response** - [See here the part In the response with error code 400 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400)
+- **400, 401, 404 response** -  [See here the part In the response with error code 400, 401, 404 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-400-401-404);
+- **403, 405, 409 response**  - [See here the part In the response with error code 403, 405, 409 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-403-405-409)
+- **401 response** - [See here the part Error response extended in AIS / PIS / PIIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-error-response-extended)
+- **404 response** - [See here the part In the response with error code 403 in AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/common.md#-in-the-response-with-error-code-404);
+- **400, 401 ,403, 404, 405, 409 response**
+  - [See here - Name changed part](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#-name-changed); 
+  - [See here - Parameter _links part AIS section](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/dev/common.md#ais--pis--piis-1);
 
-**See common:** [cardAccount](common.md#headers), [cardAccount](common.md#headers), [cardTransactions](common.md#headers), [cardAcceptorAddress](common.md#headers), [countrySubDivision](common.md#headers), [cardTransactios](common.md#headers)
+
 
 #### 🔎 Query
-deleted entryReferenceFrom;
+- deleted entryReferenceFrom;
