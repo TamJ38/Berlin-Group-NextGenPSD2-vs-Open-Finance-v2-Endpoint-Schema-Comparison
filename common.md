@@ -106,7 +106,7 @@ Grouped by type of change and API group.
   - `account.other.schemeNameCode` → extended with enum values:  
     `AIIN`, `BBAN`, `CUID`, `UPIC`
 - #### 🔸 For every type of transaction in transactions:
-  - Added 
+  **Added**: 
   - **New mandatory field** for:
     `creditorAgent`, `debtorAgent` → `financialInstitutionId`
   - Fields for `ultimateCreditor` and `ultimateDebtor`:
