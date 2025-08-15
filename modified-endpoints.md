@@ -2,6 +2,9 @@
 
 This file contains detailed changes for each modified endpoint. Where applicable, shared changes are referenced from [`common.md`](common.md).
 
+### Consent & Authorisation
+Consent and authorisation have been **globalised in V2**. To keep this file focused on endpoint modifications only, the detailed comparison (endpoints, headers, request/response models) is documented separately here: **[consent & authorisation endpoints changes.md](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/consent%20%26%20authorisation%20endpoints%20changes)**.
+
 ## 🗂️ Modified Endpoints Overview
 
 | API | Method | Endpoint V2 | Changes | Details |
@@ -24,7 +27,7 @@ This file contains detailed changes for each modified endpoint. Where applicable
 
 ---
 
-### v2-payments-payment-product
+### /v2/payments/{payment-product}
 **Group**: PIS  
 **Method**: `POST`  
 **Endpoint v2**: `/v2/payments/{payment-product}`
@@ -83,7 +86,7 @@ Path changed from /v1/{payment-service}/{payment-product} to /v2/payments/{payme
 
 ---
 
-### v2-payment-service-payment-product-payment-id-status
+### v2/{payment-service}/{payment-product}/{payment-id}/status
 **Group**: PIS  
 **Method**: `GET`  
 **Endpoint v2**: `v2/{payment-service}/{payment-product}/{payment-id}/status`
@@ -132,7 +135,7 @@ messageCode_PushAisSpecific{...}
 
 ---
 
-### v2-payment-service-payment-product-payment-id
+### v2/{payment-service}/{payment-product}/{payment-id}
 **Group**: PIS  
 **Method**: `GET`  
 **Endpoint v2**: `v2/{payment-service}/{payment-product}/{payment-id}`
@@ -168,7 +171,7 @@ PeriodicPayment_generic{...}; (whole response is changed)
 
 ---
 
-### v1-payment-service-payment-product-payment-id
+### v2/{payment-service}/{payment-product}/{payment-id}
 **Group**: PIS  
 **Method**: `DELETE`  
 **Endpoint v2**: `v2/{payment-service}/{payment-product}/{payment-id}`
@@ -200,7 +203,7 @@ PSU-ID, PSU-ID-Type, PSU-Corporate-ID, PSU-Corporate-ID-Type, Client-Notificatio
 
 ---
 
-### v2-bulk-payments-payment-product-paymentid-extended-status
+### /v2/bulk-payments/{payment-product}/{paymentId}/extended-status
 **Group**: PIS  
 **Method**: `GET`  
 **Endpoint v2**: `/v2/bulk-payments/{payment-product}/{paymentId}/extended-status`
@@ -237,7 +240,7 @@ messageCode_PushAisSpecific{...}
 
 ---
 
-### v1-funds-confirmations
+### v2/funds-confirmations
 **Group**: PIIS  
 **Method**: `POST`  
 **Endpoint v2**: `v2/funds-confirmations`
@@ -264,7 +267,7 @@ messageCode_PushAisSpecific{...}
 
 ---
 
-### v2-accounts
+### v2/accounts
 **Group**: AIS  
 **Method**: `GET`  
 **Endpoint v2**: `v2/accounts`
@@ -290,7 +293,7 @@ messageCode_PushAisSpecific{...}
 
 ---
 
-### v2-accounts-account-id
+### v2/accounts/{account-id}
 **Group**: AIS  
 **Method**: `GET`  
 **Endpoint v2**: `v2/accounts/{account-id}`
@@ -316,7 +319,7 @@ messageCode_PushAisSpecific{...}
 
 ---
 
-### v2-accounts-account-id-balances
+### v2/accounts/{account-id}/balances
 **Group**: AIS  
 **Method**: `GET`  
 **Endpoint v2**: `v2/accounts/{account-id}/balances`
@@ -343,7 +346,7 @@ messageCode_PushAisSpecific{...}
 
 ---
 
-### v2-accounts-account-id-transactions
+### v2/accounts/{account-id}/transactions
 **Group**: AIS  
 **Method**: `GET`  
 **Endpoint v2**: `v2/accounts/{account-id}/transactions`
@@ -381,7 +384,7 @@ messageCode_PushAisSpecific{...}
 
 ---
 
-### v2-accounts-account-id-transactions-transaction-id
+### v2/accounts/{account-id}/transactions/{transaction-id}
 **Group**: AIS  
 **Method**: `GET`  
 **Endpoint v2**: `v2/accounts/{account-id}/transactions/{transaction-id}`
@@ -415,7 +418,7 @@ messageCode_PushAisSpecific{...}
 
 ---
 
-### v2-card-accounts
+### /v2/card-accounts
 **Group**: AIS  
 **Method**: `GET`  
 **Endpoint v2**: `/v2/card-accounts`
@@ -442,7 +445,7 @@ messageCode_PushAisSpecific{...}
 
 ---
 
-### v2-card-accounts-account-id
+### v2/card-accounts/{account-id}
 **Group**: AIS  
 **Method**: `GET`  
 **Endpoint v2**: `v2/card-accounts/{account-id}`
@@ -469,7 +472,7 @@ messageCode_PushAisSpecific{...}
 
 ---
 
-### v2-card-accounts-account-id-balances
+### v2/card-accounts/{account-id}/balances
 **Group**: AIS  
 **Method**: `GET`  
 **Endpoint v2**: `v2/card-accounts/{account-id}/balances`
@@ -496,7 +499,7 @@ messageCode_PushAisSpecific{...}
 
 ---
 
-### v2-card-accounts-account-id-transactions
+### /v2/card-accounts/{account-id}/transactions
 **Group**: AIS  
 **Method**: `GET`  
 **Endpoint v2**: `/v2/card-accounts/{account-id}/transactions`

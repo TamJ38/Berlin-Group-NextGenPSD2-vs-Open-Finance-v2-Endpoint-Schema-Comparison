@@ -12,6 +12,7 @@
 | `Endpoints`  | Lists **all endpoints** in v1 and v2. Shows the **HTTP method**, **path**, **status** (removed, added, modified), and what changed (Path, Header, Request, Response, Query). |
 | `Modified endpoints` | Describes changes in endpoints marked as **modified**. Specifies what changed (e.g. renamed path, added field, altered response). |
 | `Common`     | Contains **shared/global changes** referenced in `Modifications`. Helps avoid duplication of recurring changes. |
+| `Consent & authorisation endpoints changes`     | Contains **detailed comparison of consent and SCA changes**, now globalised in V2. |
 
 ---
 
@@ -54,6 +55,7 @@ Example snippet from the full comparison matrix:
 - Check the `Common` tab for global/query/header changes reused across endpoints
 - Filtered by:
   - API group: AIS / PIS / PIIS
+- Check the `Consent & Authorisation endpoints changes` file to see detailed explanation of consent and authorisation changes.
 
 ---
 
@@ -61,6 +63,7 @@ Example snippet from the full comparison matrix:
 
 This comparison is curated based on official Berlin Group specifications.  
 It is structured for high reusability in documentation, implementation planning, testing pipelines, and automated migration workflows.
+
 
 
 
