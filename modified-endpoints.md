@@ -3,7 +3,7 @@
 This file contains detailed changes for each modified endpoint. Where applicable, shared changes are referenced from [`common.md`](common.md).
 
 ### Consent & Authorisation
-Consent and authorisation have been **globalised in V2**. To keep this file focused on endpoint modifications only, the detailed comparison (endpoints, headers, request/response models) is documented separately here: **[consent & authorisation endpoints changes.md](consent-&-authorisation-endpoints-changes.md)**.
+Consent and authorisation have been **globalised in V2**. To keep this file focused on endpoint modifications only, the detailed comparison (endpoints, headers, request/response models) is documented separately here: **[consent & authorisation endpoints changes.md](https://github.com/TamJ38/Berlin-Group-NextGenPSD2-vs-Open-Finance-v2-Endpoint-Schema-Comparison/blob/master/consent%20%26%20authorisation%20endpoints%20changes)**.
 
 ## 🗂️ Modified Endpoints Overview
 
