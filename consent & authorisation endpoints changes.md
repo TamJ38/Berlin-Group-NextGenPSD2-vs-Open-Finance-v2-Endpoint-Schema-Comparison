@@ -95,14 +95,13 @@ _All replaced with:_
 
 # Detailed comparison
 
-## Create AIS Consent — Response schema differences (V1 → V2)
+## Create AIS Consent — differences V1 → V2
 
-### Endpoints
+**Endpoints**
 - **V1:** `POST /v1/consents`
 - **V2:** `POST /v2/consents/account-access`
 
-### Headers - diff
-
+### 📌 Headers - diff
 ```diff
 - Signature
 + x-jws-signature
@@ -129,7 +128,6 @@ _All replaced with:_
 - TPP-Redirect-Preferred
 - TPP-Decoupled-Preferred
 
-
 + Body-Sig-Profile
 + Body-Enc-Profile
 + Body-Enc-List
@@ -137,7 +135,7 @@ _All replaced with:_
 
 ---
 
-### Request example of v2 vs v1
+### 📌 Request example of v2 vs v1
 
 <details>
 <summary>Example Request – Create Consent (V2)</summary>
@@ -496,7 +494,7 @@ POST /v1/consents/account-access
 ```
 </details>
 
-### 1) High-level model shift
+**1) High-level model shift in the request schema**
 
 - **V1** centres on `consents.access` with three **lists of intentions per account**:
   - `accounts[]`, `balances[]`, `transactions[]` (+ optional `additionalInformation{ ownerName[], trustedBeneficiaries[] }`)
@@ -508,7 +506,7 @@ POST /v1/consents/account-access
 
 ---
 
-### 2) Top-level consent attributes
+**2) Top-level consent attributes in the request schema**
 
 | V1 field                | V2 field        | Status     | Notes |
 |-------------------------|-----------------|------------|-------|
@@ -520,7 +518,7 @@ POST /v1/consents/account-access
 
 ---
 
-### 3) Access model: intent-lists (V1) → rights per account (V2)
+**3) Access model(in the request schema): account-lists (V1) → `rights` per `account` (V2)**
 
 | Concept | V1 (inside `access`) | V2 (inside `access`) | Status / Mapping |
 |---|---|---|---|
@@ -533,12 +531,12 @@ POST /v1/consents/account-access
 | Ask for **all accounts (with/without owner)** | `availableAccounts`, `availableAccountsWithBalance` | Use `consentType` + `rights` (e.g., include `ownerName`) | **Consolidated into type + rights** |
 | Restrict by **account type** | `restrictedTo[]` of `cashAccountType` | Choose the **bucket** (`payments`, `cards`, `cardAccounts`, `savings`, `loans`, `securities`) | **Shifted to buckets** |
 
-> **Reading tip:** In V1 you “tick boxes” by placing account refs into `accounts[]/balances[]/transactions[]`.  
-> In V2 you **declare rights** (`rights[]`) for each **accountAccessRights** entry in the relevant **bucket**.
+> **Reading tip:** In V1 they “tick boxes” by placing account refs into `accounts[]/balances[]/transactions[]`.  
+> In V2 they **declare rights** (`rights[]`) for each **accountAccessRights** entry in the relevant **bucket**.
 
 ---
 
-### 4) Account reference: structure evolution
+**4) Account reference in the request schema: structure evolution**
 
 | Area | V1 `accountReference` | V2 `account` (inside `accountAccessRights`) | Status / Additions |
 |---|---|---|---|
@@ -551,7 +549,7 @@ POST /v1/consents/account-access
 
 ---
 
-### 5) Rights catalogue (V2)
+**5) Rights catalogue (V2)**
 
 V2 introduces a **unified rights list** (`rights: [AccessRightsCodes]`), e.g.:
 `ais`, `accountDetails`, `balances`, `transactions`, `orders`, `ownerName`, `psuName`, `psuLeanIdentification`, `trustedBeneficiaries`, `initiatePayments`, `fundsConfirmations`, `userParameters`, `ibanChecks`, `corporateParameters`, `accountCheckParameters`.
@@ -560,7 +558,7 @@ This replaces V1’s multiple arrays/flags (`accounts[]`, `balances[]`, `transac
 
 ---
 
-### 6) Mini diff (conceptual)
+**6) Mini diff (conceptual)**
 
 ```diff
 - access.accounts[]: accountReference per account to get details
@@ -579,7 +577,7 @@ This replaces V1’s multiple arrays/flags (`accounts[]`, `balances[]`, `transac
 + validTo (was validUntil)
 ```
 
-### Response 200 Differences – V1 vs V2 (POST /consents)
+### Response 201 Differences – V1 vs V2 (POST /consents)
 
 **Added in V2**
 - `consentStatus` enum: Added value `replacedByTpp`.
@@ -591,30 +589,44 @@ This replaces V1’s multiple arrays/flags (`accounts[]`, `balances[]`, `transac
   - `name` is now **mandatory** in V2 (was optional in V1).
 - `_links`:
   - Added `encryptionCertificates` array.
-- In `_links` description: now explicitly references [oFA SMPF] and generically defined Transaction Initiation Response links.
-- `challengeData` description extended to mention `"startAuthorisactionWithEncryptedPsuAuthentication"`.
 
 **Removed in V2**
 - `consentStatus` enum: Removed value `received` description text from V1, replaced with shorter definition.
-- Removed detailed `scaMethods.authenticationObject` examples from V1 (e.g., `"myAuthenticationID"`, `"SMS OTP on phone..."`), now only generic text.
-- Removed `authenticationVersion` description details in V1 that referred to ASPSP documentation, kept only short form.
 - `_links`:
   - Removed individual V1-specific description for each link (e.g., `scaRedirect`, `scaOAuth`, etc.), now only listed as possible links.
-- Removed explicit note in `_links` about when `startAuthorisationWithAuthenticationMethodSelection` appears (moved to `scaMethods` description).
 - Removed `otpFormat` enum values list ("characters", "integer") from V1, kept only text in V2.
 
 **Changed in V2**
-- `consentStatus`:
-  - Wording changed from "overall lifecycle status" (V1) to "authentication status of the consent" (V2).
-- `scaMethods`:
-  - Reference to "ASPSP documentation" in V1 replaced with reference to `"openFinance API Framework Data Dictionary"`.
-  - Shortened descriptions of attributes (`authenticationType`, `authenticationMethodId`, `name`, `explanation`).
 - `chosenScaMethod`:
-  - Same shortening of descriptions as in `scaMethods`.
   - Added explicit note that this appears only if Embedded SCA approach is chosen and method is implicitly selected.
-- `challengeData`:
-  - `data` description changed from "A collection of strings as challenge data" (V1) to "A collection of challenge data" (V2).
-- `_links`:
-  - Now allows both relative and full links (V1 didn't mention relative).
-  - Description generalized to cover all Transaction Initiation Response messages.
+
+---
+
+ #### Response 201 Headers – V1 vs V2
+
+| Header | V1 | V2 | Change |
+|--------|----|----|--------|
+| **X-Reference-API-Name** | *(not present)* | `"Berlin Group openFinance API"` *(string)* | **Added** in V2 |
+| **X-Reference-API-Document** | *(not present)* | Name of Implementation Guideline document, e.g. `"Extended Payment Initiation Services"` *(string)* | **Added** in V2 |
+| **X-Reference-API-Version** | *(not present)* | Version of the API *(string)* | **Added** in V2 |
+| **ASPSP-SCA-Approach** | Values: `EMBEDDED`, `DECOUPLED`, `REDIRECT` *(OAuth SCA subsumed by REDIRECT)* | Values: `EMBEDDED`, `DECOUPLED`, `REDIRECT`, **`ASPSP-CHANNEL`** *(OAuth SCA subsumed by REDIRECT)* | **Value added:** `ASPSP-CHANNEL` |
+| **ASPSP-Notification-Support** | Boolean, same description | Boolean, same description | **No change** |
+| **ASPSP-Notification-Content** | String with constants: `SCA`, `PROCESS`, `LAST` – same description | Same constants and description | **No change** |
+| **Location** | Present | Present | **No change** |
+| **X-Request-ID** | Present | Present | **No change** |
+| **ASPSP-Multiple-Consent-Support** | *(not present)* | Boolean – true if ASPSP supports Multiple Consent Service | **Added** in V2 |
+
+---
+
+### Response 400 – V1 vs V2 Differences
+
+| Section | V1 | V2 | Change |
+|---------|----|----|--------|
+| **Error message container** | `tppMessages[]` (type: `tppMessage400_AIS`) | `apiClientMessages[]` (type: `clientMessageInformation_401_AIS`) | **Renamed** container and structure. |
+| **Error code field** | `code` (enum: `FORMAT_ERROR`, `PARAMETER_NOT_CONSISTENT`, `PARAMETER_NOT_SUPPORTED`, `SERVICE_INVALID`, `RESOURCE_UNKNOWN`, `RESOURCE_EXPIRED`, `RESOURCE_BLOCKED`, `TIMESTAMP_INVALID`, `PERIOD_INVALID`, `SCA_METHOD_UNKNOWN`, `SCA_INVALID`, `CONSENT_UNKNOWN`, `SESSIONS_NOT_SUPPORTED`) | `code` split into two sets: **Service Unspecific** (`CERTIFICATE_INVALID`, `ROLE_INVALID`, `CERTIFICATE_EXPIRED`, `CERTIFICATE_BLOCKED`, `CERTIFICATE_REVOKED`, `CERTIFICATE_MISSING`, `CLIENT_INVALID`, `CLIENT_INCONSISTENT`, `API_CONTRACT_ID_INVALID`, `SIGNATURE_INVALID`, `SIGNATURE_MISSING`, `ROLE_INVALID`, `PSU_CREDENTIALS_INVALID`, `CORPORATE_ID_INVALID`, `CONSENT_INVALID`, `CONSENT_EXPIRED`, `TOKEN_UNKNOWN`, `TOKEN_INVALID`, `TOKEN_EXPIRED`) and **AIS Specific** codes (pattern-restricted). | **Expanded and restructured** error code sets; more certificate, client, token-related errors added. |
+| **path** | `path` (string) | `path` (array / as defined in Data Dictionary) | **Type change**. |
+| **text** | `text` (string, max 500 chars) | `text` (type: `Max500Text` from Data Dictionary) | **Type refactor**; semantic same. |
+| **Links object** | `_links` with large set of AIS-specific link relations (e.g., `scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `updatePsuIdentification`, `balances`, `transactions`, `download`, etc.) | `_links` (type: `links`) from Data Dictionary – expanded with additional link relations such as `updateResourceByDebtorAccountResource`, `transactionfees`, `savingsAccount`, `loanAccount`, `ibanCheck`, `paymentInitiation`, `securitiesAccount`, `positions`, `orders`, `orderDetails`, `relatedOrders`, `relatedTransactions`, `subscription`, `entryStatusRevoked`, `confirmInitiation`, `aspspParameters`, `aspspContacts`, `aspspDowntimes`, `onboardings`, `readConditions`, `confirmConditions`, etc. | **Link list globalised and expanded**; many new link types introduced. |
+| **Removed fields** | `creditorNameConfirmation` link in V1 | *(not present in V2)* | **Removed**. |
+
 
