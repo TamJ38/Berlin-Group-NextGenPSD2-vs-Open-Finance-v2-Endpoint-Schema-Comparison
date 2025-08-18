@@ -577,7 +577,7 @@ This replaces V1’s multiple arrays/flags (`accounts[]`, `balances[]`, `transac
 + validTo (was validUntil)
 ```
 
-### Response 201 Differences – V1 vs V2 (POST /consents)
+### 🔹 Response 201 Differences – V1 vs V2 (POST /consents)
 
 **Added in V2**
 - `consentStatus` enum: Added value `replacedByTpp`.
@@ -618,15 +618,169 @@ This replaces V1’s multiple arrays/flags (`accounts[]`, `balances[]`, `transac
 
 ---
 
-### Response 400 – V1 vs V2 Differences
+### 🔹 Response 400 – V1 vs V2 Differences
 
 | Section | V1 | V2 | Change |
 |---------|----|----|--------|
 | **Error message container** | `tppMessages[]` (type: `tppMessage400_AIS`) | `apiClientMessages[]` (type: `clientMessageInformation_401_AIS`) | **Renamed** container and structure. |
-| **Error code field** | `code` (enum: `FORMAT_ERROR`, `PARAMETER_NOT_CONSISTENT`, `PARAMETER_NOT_SUPPORTED`, `SERVICE_INVALID`, `RESOURCE_UNKNOWN`, `RESOURCE_EXPIRED`, `RESOURCE_BLOCKED`, `TIMESTAMP_INVALID`, `PERIOD_INVALID`, `SCA_METHOD_UNKNOWN`, `SCA_INVALID`, `CONSENT_UNKNOWN`, `SESSIONS_NOT_SUPPORTED`) | `code` split into two sets: **Service Unspecific** (`CERTIFICATE_INVALID`, `ROLE_INVALID`, `CERTIFICATE_EXPIRED`, `CERTIFICATE_BLOCKED`, `CERTIFICATE_REVOKED`, `CERTIFICATE_MISSING`, `CLIENT_INVALID`, `CLIENT_INCONSISTENT`, `API_CONTRACT_ID_INVALID`, `SIGNATURE_INVALID`, `SIGNATURE_MISSING`, `ROLE_INVALID`, `PSU_CREDENTIALS_INVALID`, `CORPORATE_ID_INVALID`, `CONSENT_INVALID`, `CONSENT_EXPIRED`, `TOKEN_UNKNOWN`, `TOKEN_INVALID`, `TOKEN_EXPIRED`) and **AIS Specific** codes (pattern-restricted). | **Expanded and restructured** error code sets; more certificate, client, token-related errors added. |
-| **path** | `path` (string) | `path` (array / as defined in Data Dictionary) | **Type change**. |
+| **code** | `MessageCode400_AIS` enum:<br>`FORMAT_ERROR`, `PARAMETER_NOT_CONSISTENT`, `PARAMETER_NOT_SUPPORTED`, `SERVICE_INVALID`, `RESOURCE_UNKNOWN`, `RESOURCE_EXPIRED`, `RESOURCE_BLOCKED`, `TIMESTAMP_INVALID`, `PERIOD_INVALID`, `SCA_METHOD_UNKNOWN`, `SCA_INVALID`, `CONSENT_UNKNOWN`, `SESSIONS_NOT_SUPPORTED` | Split into:<br>**Service Unspecific 400** → `FORMAT_ERROR`, `PARAMETER_NOT_CONSISTENT`, `PARAMETER_NOT_SUPPORTED`, `SERVICE_INVALID`, `CONSENT_UNKNOWN`, `RESOURCE_UNKNOWN`, `RESOURCE_EXPIRED`, `RESOURCE_BLOCKED`, `TIMESTAMP_INVALID`, `PERIOD_INVALID`, `SCA_METHOD_UNKNOWN`, `SCA_INVALID`<br>**AIS Specific 400** → `CONSENT_TYPE_NOT_SUPPORTED`, `SESSIONS_NOT_SUPPORTED` | Repartitioned & extended |
+| **path** | `string` | `string` | Unchanged |
 | **text** | `text` (string, max 500 chars) | `text` (type: `Max500Text` from Data Dictionary) | **Type refactor**; semantic same. |
-| **Links object** | `_links` with large set of AIS-specific link relations (e.g., `scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `updatePsuIdentification`, `balances`, `transactions`, `download`, etc.) | `_links` (type: `links`) from Data Dictionary – expanded with additional link relations such as `updateResourceByDebtorAccountResource`, `transactionfees`, `savingsAccount`, `loanAccount`, `ibanCheck`, `paymentInitiation`, `securitiesAccount`, `positions`, `orders`, `orderDetails`, `relatedOrders`, `relatedTransactions`, `subscription`, `entryStatusRevoked`, `confirmInitiation`, `aspspParameters`, `aspspContacts`, `aspspDowntimes`, `onboardings`, `readConditions`, `confirmConditions`, etc. | **Link list globalised and expanded**; many new link types introduced. |
+|**_links**| `scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `creditorNameConfirmation`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, `self`, `status`, `scaStatus`, `account`, `balances`, `transactions`, `transactionDetails`, `cardAccount`, `cardTransactions`, `first`, `next`, `previous`, `last`, `download`, `<*>` | `scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, `updateResourceByDebtorAccountResource`, `self`, `status`, `transactionfees`, `scaStatus`, `account`, `savingsAccount`, `loanAccount`, `balances`, `transactions`, `cardAccount`, `cardTransactions`, `transactionDetails`, `ibanCheck`, `paymentInitiation`, `securitiesAccount`, `positions`, `orders`, `orderDetails`, `relatedOrders[]`, `relatedTransactions[]`, `subscription`, `entryStatusRevoked[]`, `first`, `next`, `previous`, `last`, `download`, `confirmInitiation`, `aspspParameters`, `aspspContacts`, `aspspDowntimes`, `onboardings`, `readConditions`, `confirmConditions` | **Expanded set** (many new links added; `creditorNameConfirmation` removed) |
 | **Removed fields** | `creditorNameConfirmation` link in V1 | *(not present in V2)* | **Removed**. |
+| Headers | `Location`, `X-Request-ID` | Same + `X-Reference-API-Name`, `X-Reference-API-Document`, `X-Reference-API-Version`, `ASPSP-Notification-Support` | New headers |
 
 
+---
+
+
+### 🔹 Response 401 – V1 vs V2 Differences
+
+| Section | v1 | v2 | diff |
+|---------|----|----|----------|
+| **Array name** | `tppMessages` | `apiClientMessages` | Името сменето |
+| **Item type** | `tppMessage401_AIS` | `clientMessageInformation_401_AIS` | Сменета структура |
+| **category** | Enum: `ERROR`, `WARNING` | Enum: `ERROR`, `WARNING` | Исто |
+| **code** | `MessageCode401_AIS` <br> Enum: `CERTIFICATE_INVALID`, `ROLE_INVALID`, `CERTIFICATE_EXPIRED`, `CERTIFICATE_BLOCKED`, `CERTIFICATE_REVOKE`, `CERTIFICATE_MISSING`, `SIGNATURE_INVALID`, `SIGNATURE_MISSING`, `CORPORATE_ID_INVALID`, `PSU_CREDENTIALS_INVALID`, `CONSENT_INVALID`, `CONSENT_EXPIRED`, `TOKEN_UNKNOWN`, `TOKEN_INVALID`, `TOKEN_EXPIRED` | `MessageCode_401_AIS` <br> (Service Unspecific + AIS Specific) <br> Enum: `CERTIFICATE_INVALID`, `ROLE_INVALID`, `CERTIFICATE_EXPIRED`, `CERTIFICATE_BLOCKED`, `CERTIFICATE_REVOKED`, `CERTIFICATE_MISSING`, `SIGNATURE_INVALID`, `SIGNATURE_MISSING`, `CORPORATE_ID_INVALID`, `PSU_CREDENTIALS_INVALID`, `CONSENT_INVALID`, `CONSENT_EXPIRED`, `TOKEN_UNKNOWN`, `TOKEN_INVALID`, `TOKEN_EXPIRED`, **`CLIENT_INVALID`**, **`CLIENT_INCONSISTENT`**, **`API_CONTRACT_ID_INVALID`** | Во v2 има нови кодови и поправка `CERTIFICATE_REVOKED` |
+| **path** | string | string | Исто |
+| **text** | `tppMessageTextstring` (max 500) | `Max500Textstring` (max 500) | Исто (само друго име) |
+|**_links**|`scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `creditorNameConfirmation`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, `self`, `status`, `scaStatus`, `account`, `balances`, `transactions`, `transactionDetails`, `cardAccount`, `cardTransactions`, `first`, `next`, `previous`, `last`, `download`, `< * >` | `scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, **`updateResourceByDebtorAccountResource`**, `self`, `status`, **`transactionfees`**, `scaStatus`, `account`, **`savingsAccount`**, **`loanAccount`**, `balances`, `transactions`, `cardAccount`, `cardTransactions`, `transactionDetails`, **`ibanCheck`**, **`paymentInitiation`**, **`securitiesAccount`**, **`positions`**, **`orders`**, **`orderDetails`**, **`relatedOrders`**, **`relatedTransactions`**, **`subscription`**, **`entryStatusRevoked`**, `first`, `next`, `previous`, `last`, `download`, **`confirmInitiation`**, **`aspspParameters`**, **`aspspContacts`**, **`aspspDowntimes`**, **`onboardings`**, **`readConditions`**, **`confirmConditions`** |
+| **Removed fields** | `creditorNameConfirmation` link in V1 | *(not present in V2)* | **Removed**. |
+| **Headers**, | `Location`, `X-Request-ID` | Same + `X-Reference-API-Name`, `X-Reference-API-Document`, `X-Reference-API-Version`, `ASPSP-Notification-Support` | New headers |
+
+
+---
+
+
+### 🔹 Response 403 – V1 vs V2 Differences
+
+| Aspect                | **V1** (`Error403_NG_AIS`) | **V2** (`error_NG_403_AIS`) |
+|------------------------|-----------------------------|------------------------------|
+| **Message container**  | `tppMessages[]`            | `apiClientMessages[]`        |
+| **Message object**     | `tppMessage403_AIS`        | `clientMessageInformation_403_AIS` |
+| **Category**           | `tppMessageCategorystring`<br>Enum: `[ERROR, WARNING]` | `category* string`<br>Only `"ERROR"` or `"WARNING"` permitted |
+| **Code**               | `MessageCode403_AISstring`<br>Enum: `[CONSENT_UNKNOWN, SERVICE_BLOCKED, RESOURCE_UNKNOWN, RESOURCE_EXPIRED]` | `MessageCode_403_AIS->MessageCode_ServiceUnspecific_403`<br>Enum: `[SERVICE_BLOCKED, CONSENT_UNKNOWN, RESOURCE_UNKNOWN, RESOURCE_EXPIRED]`  |
+| **Text**               | `tppMessageTextstring`<br>maxLength: 500 | `Max500Text[...]` |
+| **Path**               | `string`                   | `string` |
+| **Links** | `scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `updatePsuIdentification`, `updateProprietaryData`, `updatePsuAuthentication`, `updateEncryptedPsuAuthentication`, `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `selectAuthenticationMethod`, `authoriseTransaction`, etc. | `updateResourceByDebtorAccountResource`, `transactionfees`, `savingsAccount`, `loanAccount`, `ibanCheck`, `paymentInitiation`, `securitiesAccount`, `positions`, `orders`, `orderDetails`, `relatedOrders[]`, `relatedTransactions[]`, `subscription`, `entryStatusRevoked[]`, `confirmInitiation`, `aspspParameters`, `aspspContacts`, `aspspDowntimes`, `onboardings`, `readConditions`, `confirmConditions`  **extended** list|
+| **Headers**, | `Location`, `X-Request-ID` | Same + `X-Reference-API-Name`, `X-Reference-API-Document`, `X-Reference-API-Version`, `ASPSP-Notification-Support` | New headers |
+
+
+---
+
+
+### 🔹 Response 404 – V1 vs V2 Differences
+
+#### Root / Messages
+
+| Aspect | **v1** | **v2** | Difference |
+|---|---|---|---|
+| **Messages array** | `tppMessages[]` | `apiClientMessages[]` | Renamed |
+| **Message item type** | `tppMessage404_AIS` | `clientMessageInformation_404_AIS` | Renamed |
+| **category** | `tppMessageCategorystring` (Enum: `ERROR`, `WARNING`) | `string` (Only `ERROR` or `WARNING`) | Same values |
+| **code** | `MessageCode404_AISstring` (Enum: `RESOURCE_UNKNOWN`) | `MessageCode_404_AIS` = anyOf: <br>• **Service Unspecific**: `RESOURCE_UNKNOWN` <br>• **AIS Specific**: `CONTENT_TEMPORARILY_NOT_AVAILABLE` | New AIS-specific code in v2 |
+| **path** | `string` | `string` | — |
+| **text** | `tppMessageTextstring` (max 500) | `Max500Textstring` (max 500) | Type alias renamed |
+| **links** | `scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, `account`, `balances`, `transactions`, `transactionDetails`, `cardAccount`, `cardTransactions`, `self`, `status`, `scaStatus, `first`, `next`, `previous`, `last`, `download`,  `creditorNameConfirmation`, `< * >` | Same base + **`savingsAccount`**, **`loanAccount`**, **`paymentInitiation`**, **`ibanCheck`**, **`transactionfees`**, **`securitiesAccount`**, **`positions`**, **`orders`**, **`orderDetails`**, **`relatedOrders[]`**, **`relatedTransactions[]`**, **`subscription`**, **`entryStatusRevoked[]`**, **`aspspParameters`**, **`aspspContacts`**, **`aspspDowntimes`**, **`onboardings`**, **`readConditions`**, **`confirmConditions`**, **`updateResourceByDebtorAccountResource`** and `creditorNameConfirmation` is removed|
+| **Headers**, | `Location`, `X-Request-ID` | Same + `X-Reference-API-Name`, `X-Reference-API-Document`, `X-Reference-API-Version`, `ASPSP-Notification-Support` | New headers |
+
+
+---
+
+
+### 🔹 Response 405 – V1 vs V2 Differences
+
+| Aspect / Section | **v1** | **v2** | Difference |
+|---|---|---|---|
+| **Messages array** | `tppMessages[]` | `apiClientMessages[]` | Renamed |
+| **Message item type** | `tppMessage405_AIS` | `clientMessageInformation_405_AIS` | Renamed |
+| **category** | `tppMessageCategorystring` (Enum: `ERROR`, `WARNING`) | `string` (Only `ERROR` or `WARNING`) | Same values, wording tightened |
+| **code** | `MessageCode405_AIS` (Enum: `SERVICE_INVALID`) | `MessageCode_405_AIS` **anyOf** → Service-Unspecific: `SERVICE_INVALID` | Same code set; structure switched to anyOf |
+| **path** | `string` | `string` | — |
+| **text** | `tppMessageTextstring` (max 500) | `Max500Textstring` (max 500) | Type alias renamed |
+| **_links** — Core Authorisation / SCA | `scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction` | Same set | — |
+| **_links** — Accounts (AIS) | `account`, `balances`, `transactions`, `transactionDetails`, `cardAccount`, `cardTransactions` | Same + **`savingsAccount`**, **`loanAccount`** | New in v2 |
+| **_links** — Payments / Misc | — | **`paymentInitiation`**, **`ibanCheck`**, **`transactionfees`** | New in v2 |
+| **_links** — Securities | — | **`securitiesAccount`**, **`positions`**, **`orders`**, **`orderDetails`**, **`relatedOrders[]`**, **`relatedTransactions[]`** | New in v2 |
+| **_links** — Subscriptions / Status | `self`, `status`, `scaStatus` | Same + **`subscription`**, **`entryStatusRevoked[]`** | New in v2 |
+| **_links** — Paging / Download | `first`, `next`, `previous`, `last`, `download` | Same | — |
+| **_links** — ASPSP Ops | — | **`aspspParameters`**, **`aspspContacts`**, **`aspspDowntimes`**, **`onboardings`**, **`readConditions`**, **`confirmConditions`**, **`confirmInitiation`**, **`updateResourceByDebtorAccountResource`** | New in v2 |
+| **_links** — Other | `creditorNameConfirmation`, `< * >` | — | `creditorNameConfirmation` not listed in v2 |
+| **Headers** | `Location`, `X-Request-ID` | Same + **`X-Reference-API-Name`**, **`X-Reference-API-Document`**, **`X-Reference-API-Version`**, **`ASPSP-Notification-Support`** | New headers introduced in v2 |
+
+---
+
+### 🔹 Response 406 – Not Acceptable
+
+*(no schema shown in v2)*
+
+| Aspect     | V1 | V2 |
+|------------|----|----|
+| **Schema** | *(schema shown)* | *(no schema shown)* |
+| **Headers** | - **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)* | - **X-Reference-API-Name** – `"Berlin Group openFinance API"` *(string)*<br>- **X-Reference-API-Document** – Implementation Guideline document name *(string)*<br>- **X-Reference-API-Version** – Version of the API *(string)*<br>- **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)*<br>- **ASPSP-Notification-Support** – Indicates support for resource status notifications *(boolean)* |
+
+
+---
+
+
+### 🔹 Response 408 – Request Timeout
+
+| Aspect     | V1 | V2 |
+|------------|----|----|
+| **Schema** | *(no schema shown)* | *(no schema shown)* |
+| **Headers** | - **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)* | - **X-Reference-API-Name** – `"Berlin Group openFinance API"` *(string)*<br>- **X-Reference-API-Document** – Implementation Guideline document name *(string)*<br>- **X-Reference-API-Version** – Version of the API *(string)*<br>- **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)*<br>- **ASPSP-Notification-Support** – Indicates support for resource status notifications *(boolean)* |
+
+
+--- 
+
+
+### 🔹 Response 409 – Request Timeout
+
+| Section       | v1                                                                                                                        | v2                                                                                                                        |
+|---------------|----------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| **Message Array** | `tppMessages` → array of `tppMessage409_AIS`                                                                            | `apiClientMessages` → array of `clientMessageInformation_409_AIS`                                                           |
+| **Message Category** | `category` (Enum: `ERROR`, `WARNING`)                                                                                 | `category` (Enum: `ERROR`, `WARNING`)                                                                                      |
+| **Message Code** | `code` = `MessageCode409_AISstring` (Enum: `[STATUS_INVALID]`)                                                           | `code` = `MessageCode_409_AIS` (anyOf → `MessageCode_ServiceUnspecific_409`, e.g. `STATUS_INVALID`)                         |
+| **Path**        | `path` (string)                                                                                                          | `path` (string)                                                                                                            |
+| **Text**        | `text` (string, maxLength 500, example text)                                                                             | `text` (Max500Textstring, maxLength 500, example text)                                                                     |
+| **Links**       | `_links` (`_linksAll`) with many link types:<br> `scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `updatePsuIdentification`, `updateProprietaryData`, `updatePsuAuthentication`, `updateEncryptedPsuAuthentication`, `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `selectAuthenticationMethod`, `creditorNameConfirmation`, `authoriseTransaction`, `self`, `status`, `scaStatus`, `account`, `balances`, `transactions`, `transactionDetails`, `cardAccount`, `cardTransactions`, `first`, `next`, `previous`, `last`, `download`, `<*>` | `_links` (`links`) with expanded list:<br> `scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `updatePsuIdentification`, `updateProprietaryData`, `updatePsuAuthentication`, `updateEncryptedPsuAuthentication`, `selectAuthenticationMethod`, `authoriseTransaction`, `updateResourceByDebtorAccountResource`, `self`, `status`, `transactionfees`, `scaStatus`, `account`, `savingsAccount`, `loanAccount`, `balances`, `transactions`, `cardAccount`, `cardTransactions`, `transactionDetails`, `ibanCheck`, `paymentInitiation`, `securitiesAccount`, `positions`, `orders`, `orderDetails`, `relatedOrders`, `relatedTransactions`, `subscription`, `entryStatusRevoked`, `first`, `next`, `previous`, `last`, `download`, `confirmInitiation`, `aspspParameters`, `aspspContacts`, `aspspDowntimes`, `onboardings`, `readConditions`, `confirmConditions` |
+| **Headers** | - **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)* | - **X-Reference-API-Name** – `"Berlin Group openFinance API"` *(string)*<br>- **X-Reference-API-Document** – Implementation Guideline document name *(string)*<br>- **X-Reference-API-Version** – Version of the API *(string)*<br>- **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)*<br>- **ASPSP-Notification-Support** – Indicates support for resource status notifications *(boolean)* |                                          |
+| **Example**     | `[{ "category": "ERROR", "code": "STATUS_INVALID", "text": "additional text information..." }]`                          | `{ "category": "ERROR", "code": "STATUS_INVALID", "text": "Text, maximum of 500 characters" }`                              |
+
+
+### 🔹 Response 415 – Request Timeout
+
+| Aspect     | V1 | V2 |
+|------------|----|----|
+| **Schema** | *(no schema shown)* | *(no schema shown)* |
+| **Headers** | - **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)* | - **X-Reference-API-Name** – `"Berlin Group openFinance API"` *(string)*<br>- **X-Reference-API-Document** – Implementation Guideline document name *(string)*<br>- **X-Reference-API-Version** – Version of the API *(string)*<br>- **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)*<br>- **ASPSP-Notification-Support** – Indicates support for resource status notifications *(boolean)* |
+
+
+---
+
+
+### 🔹 Response 429 – Request Timeout
+
+Method is deleted in v2.
+
+
+---
+
+
+### 🔹 Response 500 – Request Timeout
+
+| Aspect     | V1 | V2 |
+|------------|----|----|
+| **Schema** | *(no schema shown)* | *(no schema shown)* |
+| **Headers** | - **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)* | - **X-Reference-API-Name** – `"Berlin Group openFinance API"` *(string)*<br>- **X-Reference-API-Document** – Implementation Guideline document name *(string)*<br>- **X-Reference-API-Version** – Version of the API *(string)*<br>- **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)*<br>- **ASPSP-Notification-Support** – Indicates support for resource status notifications *(boolean)* |
+
+
+---
+
+
+### 🔹 Response 503 – Request Timeout
+
+| Aspect     | V1 | V2 |
+|------------|----|----|
+| **Schema** | *(no schema shown)* | *(no schema shown)* |
+| **Headers** | - **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)* | - **X-Reference-API-Name** – `"Berlin Group openFinance API"` *(string)*<br>- **X-Reference-API-Document** – Implementation Guideline document name *(string)*<br>- **X-Reference-API-Version** – Version of the API *(string)*<br>- **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)*<br>- **ASPSP-Notification-Support** – Indicates support for resource status notifications *(boolean)* |
