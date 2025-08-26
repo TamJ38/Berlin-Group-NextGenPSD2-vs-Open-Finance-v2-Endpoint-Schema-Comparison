@@ -95,6 +95,211 @@ _All replaced with:_
 
 # Detailed comparison
 
+## 4.1 GET Authorisation by ID (read SCA status) - AIS
+
+**Endpoints**
+- **V1:** `GET /v1/consents/{consent-id}/authorisations/{authorisation-id}`
+- **V2:** `GET /v2/{resource-path}/{resourceId}/{authorisation-category}/{authorisationId}`  
+
+
+```diff
+Path
+- consentId * (path)  
+- authorisationId * (path)  
+
++ resource-path * (path)  
++ resourceId * (path)  
++ authorisation-category * (path)  
++ authorisationId * (path)  
+
+Header
+  Digest
+  - Only if Signature is present in request.  
+  - Example: SHA-256=hl1/Eps8BEQW58FJhDApwJXjGY4nr1ArGDHIT25vq6A=
+  + Must always follow RFC3230 + RFC5843 rules.  
+  + Hash of body or empty byte list if no body.  
+  + Algorithms: SHA-256, SHA-512.  
+  + Example: SHA-256=hl1/Eps8BEQW58FJhDApwJXjGY4nr1ArGDHIT25vq6A=
+
+- Signature  
+- TPP-Signature-Certificate  
+
++ x-jws-signature  
+
+- PSU-IP-Address  
+- PSU-IP-Port  
+- PSU-Accept  
+- PSU-Accept-Charset  
+- PSU-Accept-Encoding  
+- PSU-Accept-Language  
+- PSU-User-Agent  
+- PSU-Http-Method  
+- PSU-Device-ID  
+- PSU-Geo-Location  
+```
+
+
+### Response 200 
+
+| Aspect | V1 | V2 | Change |
+| --- | --- | --- | --- |
+| **Root object name** | `scaStatusResponse` | *(no explicit wrapper, flat fields)* | Structure simplified |
+| **scaStatus** | Enum: `received`, `psuIdentified`, `psuAuthenticated`, `scaMethodSelected`, `started`, `unconfirmed`, `finalised`, `failed`, `exempted` | Same enum list | No change in codes |
+| **psuMessage** | `psuMessageText` *(string, max 500)* | ❌ Removed | Field dropped |
+| **trustedBeneficiaryFlag** | Boolean, optional, only if scaStatus final. | ❌ Removed | Field dropped |
+| **_links** | Rich `_linksAll` object: `scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `creditorNameConfirmation`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, `self`, `status`, `scaStatus`, `account`, `balances`, `transactions`, `transactionDetails`, `cardAccount`, `cardTransactions`, `first`, `next`, `previous`, `last`, `download`, `<*>` | Simplified `_links`: only `scaStatus` (href) and generic `<*>` placeholders for extensions | All extra links dropped; V2 keeps only minimal navigation |
+| **tppMessage(s)** | `tppMessage[]` with `category`, `code`, `path`, `text`. Codes: generic `tppMessageCodeGeneric`. | `tppMessages[]` of `clientMessageInformation` with structured `code` (split into ServiceUnspecific, AIS, PIS, PIIS, SigningBasket, PushAIS specific codes). | Reworked: moved from generic to highly structured multi-domain codes |
+| **Headers** | `X-Request-ID` | `X-Request-ID`, **`X-Reference-API-Name`**, **`X-Reference-API-Document`**, **`X-Reference-API-Version`** | New reference headers added in V2 |
+
+
+---
+
+
+### Response 400
+
+| Aspect | V1 | V2 | Change |
+|---|---|---|---|
+| **Error container & item type** | `tppMessages[]` of `tppMessage400_AIS` | `apiClientMessages[]` of `clientMessageInformation_400_AUTHORISATION` | Renamed and scoped to Authorisation in V2 |
+| **Error code set (enums)** | **MessageCode400_AIS**:<br>- `FORMAT_ERROR`<br>- `PARAMETER_NOT_CONSISTENT`<br>- `PARAMETER_NOT_SUPPORTED`<br>- `SERVICE_INVALID`<br>- `RESOURCE_UNKNOWN`<br>- `RESOURCE_EXPIRED`<br>- `RESOURCE_BLOCKED`<br>- `TIMESTAMP_INVALID`<br>- `PERIOD_INVALID`<br>- `SCA_METHOD_UNKNOWN`<br>- `SCA_INVALID`<br>- `CONSENT_UNKNOWN`<br>- `SESSIONS_NOT_SUPPORTED` | **MessageCode_ServiceUnspecific_400**:<br>- `FORMAT_ERROR`<br>- `PARAMETER_NOT_CONSISTENT`<br>- `PARAMETER_NOT_SUPPORTED`<br>- `SERVICE_INVALID`<br>- `CONSENT_UNKNOWN`<br>- `RESOURCE_UNKNOWN`<br>- `RESOURCE_EXPIRED`<br>- `RESOURCE_BLOCKED`<br>- `TIMESTAMP_INVALID`<br>- `PERIOD_INVALID`<br>- `SCA_METHOD_UNKNOWN`<br>- `SCA_INVALID` | In **V1**, both service-unspecific and AIS-specific codes are merged together (including `SESSIONS_NOT_SUPPORTED`).<br>In **V2**, only service-unspecific codes remain in this response schema. AIS-specific error codes were moved to AIS-specific sections. |
+| **_links** | `scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `creditorNameConfirmation`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, `self`, `status`, `scaStatus`, `account`, `balances`, `transactions`, `transactionDetails`, `cardAccount`, `cardTransactions`, `first`, `next`, `previous`, `last`, `download`, `<*>` | `scaRedirect`, `scaOAuth`, `confirmation`, `creditorNameConfirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, **`updateResourceByDebtorAccountResource`**, `self`, `status`, **`transactionfees`**, `scaStatus`, `account`, **`savingsAccount`**, **`loanAccount`**, `balances`, `transactions`, `cardAccount`, `cardTransactions`, `transactionDetails`, **`ibanCheck`**, **`paymentInitiation`**, **`securitiesAccount`**, **`positions`**, **`orders`**, **`orderDetails`**, **`relatedOrders[]`**, **`relatedTransactions[]`**, **`subscription`**, **`entryStatusRevoked[]`**, `first`, `next`, `previous`, `last`, `download`, **`confirmInitiation`**, **`aspspParameters`**, **`aspspContacts`**, **`aspspDowntimes`**, **`onboardings`**, **`readConditions`**, **`confirmConditions`** | V1: `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `<*>` removed. V2: many new links added (see **bold**). |
+| **Response headers** | `Location`, `X-Request-ID` | `Location`, `X-Request-ID`, **`X-Reference-API-Name`**, **`X-Reference-API-Document`**, **`X-Reference-API-Version`**, **`ASPSP-Notification-Support`** | New headers added |
+
+
+---
+
+
+### Response 401 — 
+
+| Aspect | V1 | V2 | Change |
+|---|---|---|---|
+| **Error container & item type** | `tppMessages[]` of `tppMessage401_AIS` | `apiClientMessages[]` of `clientMessageInformation_401_AUTHORISATION` | Renamed and scoped to Authorisation in V2 |
+| **Error code set (enums)** | **MessageCode401_AIS**:<br>- `CERTIFICATE_INVALID`<br>- `ROLE_INVALID`<br>- `CERTIFICATE_EXPIRED`<br>- `CERTIFICATE_BLOCKED`<br>- `CERTIFICATE_REVOKE`<br>- `CERTIFICATE_MISSING`<br>- `SIGNATURE_INVALID`<br>- `SIGNATURE_MISSING`<br>- `CORPORATE_ID_INVALID`<br>- `PSU_CREDENTIALS_INVALID`<br>- `CONSENT_INVALID`<br>- `CONSENT_EXPIRED`<br>- `TOKEN_UNKNOWN`<br>- `TOKEN_INVALID`<br>- `TOKEN_EXPIRED` | **MessageCode_ServiceUnspecific_401**:<br>- `CERTIFICATE_INVALID`<br>- `ROLE_INVALID`<br>- `CERTIFICATE_EXPIRED`<br>- `CERTIFICATE_BLOCKED`<br>- `CERTIFICATE_REVOKED`<br>- `CERTIFICATE_MISSING`<br>- **`CLIENT_INVALID`**<br>- **`CLIENT_INCONSISTENT`**<br>- **`API_CONTRACT_ID_INVALID`**<br>- `SIGNATURE_INVALID`<br>- `SIGNATURE_MISSING`<br>- `ROLE_INVALID` (duplicate kept)<br>- `PSU_CREDENTIALS_INVALID`<br>- `CORPORATE_ID_INVALID`<br>- `CONSENT_INVALID`<br>- `CONSENT_EXPIRED`<br>- `TOKEN_UNKNOWN`<br>- `TOKEN_INVALID`<br>- `TOKEN_EXPIRED` | V2 expands with **new codes**: `CLIENT_INVALID`, `CLIENT_INCONSISTENT`, `API_CONTRACT_ID_INVALID`. Code list reorganized as “service-unspecific”. |
+| **_links** | `scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `creditorNameConfirmation`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, `self`, `status`, `scaStatus`, `account`, `balances`, `transactions`, `transactionDetails`, `cardAccount`, `cardTransactions`, `first`, `next`, `previous`, `last`, `download`, `<*>` | `scaRedirect`, `scaOAuth`, `confirmation`, `creditorNameConfirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, **`updateResourceByDebtorAccountResource`**, `self`, `status`, **`transactionfees`**, `scaStatus`, `account`, **`savingsAccount`**, **`loanAccount`**, `balances`, `transactions`, `cardAccount`, `cardTransactions`, `transactionDetails`, **`ibanCheck`**, **`paymentInitiation`**, **`securitiesAccount`**, **`positions`**, **`orders`**, **`orderDetails`**, **`relatedOrders[]`**, **`relatedTransactions[]`**, **`subscription`**, **`entryStatusRevoked[]`**, `first`, `next`, `previous`, `last`, `download`, **`confirmInitiation`**, **`aspspParameters`**, **`aspspContacts`**, **`aspspDowntimes`**, **`onboardings`**, **`readConditions`**, **`confirmConditions`** | In V1: `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `<*>` removed.<br>In V2: many new links added (see **bold**). |
+| **Response headers** | `Location`, `X-Request-ID` | `Location`, `X-Request-ID`, **`X-Reference-API-Name`**, **`X-Reference-API-Document`**, **`X-Reference-API-Version`**, **`ASPSP-Notification-Support`** | New headers added |
+
+
+---
+
+
+### Response 403
+
+| Aspect | V1 | V2 | Change |
+|---|---|---|---|
+| **Error container & item type** | `tppMessages[]` of `tppMessage403_AIS` | `apiClientMessages[]` of `clientMessageInformation_403_AUTHORISATION` | Renamed and scoped to Authorisation in V2 |
+| **Error code set (enums)** | **MessageCode403_AIS**:<br>- `CONSENT_UNKNOWN`<br>- `SERVICE_BLOCKED`<br>- `RESOURCE_UNKNOWN`<br>- `RESOURCE_EXPIRED` | **MessageCode_ServiceUnspecific_403**:<br>- `SERVICE_BLOCKED`<br>- `CONSENT_UNKNOWN`<br>- `RESOURCE_UNKNOWN`<br>- `RESOURCE_EXPIRED` | Same set of codes, but wrapped under `ServiceUnspecific` in V2 |
+| **_links** | `scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `creditorNameConfirmation`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, `self`, `status`, `scaStatus`, `account`, `balances`, `transactions`, `transactionDetails`, `cardAccount`, `cardTransactions`, `first`, `next`, `previous`, `last`, `download`, `<*>` | `scaRedirect`, `scaOAuth`, `confirmation`, `creditorNameConfirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, **`updateResourceByDebtorAccountResource`**, `self`, `status`, **`transactionfees`**, `scaStatus`, `account`, **`savingsAccount`**, **`loanAccount`**, `balances`, `transactions`, `cardAccount`, `cardTransactions`, `transactionDetails`, **`ibanCheck`**, **`paymentInitiation`**, **`securitiesAccount`**, **`positions`**, **`orders`**, **`orderDetails`**, **`relatedOrders[]`**, **`relatedTransactions[]`**, **`subscription`**, **`entryStatusRevoked[]`**, `first`, `next`, `previous`, `last`, `download`, **`confirmInitiation`**, **`aspspParameters`**, **`aspspContacts`**, **`aspspDowntimes`**, **`onboardings`**, **`readConditions`**, **`confirmConditions`** | In V1: `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `<*>` removed.<br>In V2: many new links added (see **bold**). |
+| **Response headers** | `Location`, `X-Request-ID` | `Location`, `X-Request-ID`, **`X-Reference-API-Name`**, **`X-Reference-API-Document`**, **`X-Reference-API-Version`**, **`ASPSP-Notification-Support`** | New headers added |
+
+
+---
+
+
+### Response 404 
+
+| Aspect | V1 | V2 | Change |
+|---|---|---|---|
+| **Error container & item type** | `tppMessages[]` of `tppMessage404_AIS` | `apiClientMessages[]` of `clientMessageInformation_404_AUTHORISATION` | Renamed and scoped to Authorisation in V2 |
+| **Error code set (enums)** | **MessageCode404_AIS**:<br>- `RESOURCE_UNKNOWN` | **MessageCode_ServiceUnspecific_404**:<br>- `RESOURCE_UNKNOWN` | Same base code kept, but wrapped in `ServiceUnspecific` type in V2 |
+| **_links** | `scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `creditorNameConfirmation`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, `self`, `status`, `scaStatus`, `account`, `balances`, `transactions`, `transactionDetails`, `cardAccount`, `cardTransactions`, `first`, `next`, `previous`, `last`, `download`, `<*>` | `scaRedirect`, `scaOAuth`, `confirmation`, `creditorNameConfirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, **`updateResourceByDebtorAccountResource`**, `self`, `status`, **`transactionfees`**, `scaStatus`, `account`, **`savingsAccount`**, **`loanAccount`**, `balances`, `transactions`, `cardAccount`, `cardTransactions`, `transactionDetails`, **`ibanCheck`**, **`paymentInitiation`**, **`securitiesAccount`**, **`positions`**, **`orders`**, **`orderDetails`**, **`relatedOrders[]`**, **`relatedTransactions[]`**, **`subscription`**, **`entryStatusRevoked[]`**, `first`, `next`, `previous`, `last`, `download`, **`confirmInitiation`**, **`aspspParameters`**, **`aspspContacts`**, **`aspspDowntimes`**, **`onboardings`**, **`readConditions`**, **`confirmConditions`** | V1: `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `<*>` removed.<br>V2: many new links added (see **bold**). |
+| **Response headers** | `Location`, `X-Request-ID` | `Location`, `X-Request-ID`, **`X-Reference-API-Name`**, **`X-Reference-API-Document`**, **`X-Reference-API-Version`**, **`ASPSP-Notification-Support`** | New headers added |
+
+
+---
+
+
+### Response 405 — Differences Only (V1 vs V2)
+
+| Aspect | V1 | V2 | Change |
+|---|---|---|---|
+| **Error container & item type** | `tppMessages[]` of `tppMessage405_AIS` | `apiClientMessages[]` of `clientMessageInformation_405_AUTHORISATION` | Renamed structures & scoped to Authorisation in V2 |
+| **Error code set (enums)** | **MessageCode405_AIS**:<br>- `SERVICE_INVALID` | **MessageCode_ServiceUnspecific_405**:<br>- `SERVICE_INVALID` | Same enum retained, but wrapped under `ServiceUnspecific` type in V2 |
+| **_links** | `scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `creditorNameConfirmation`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, `self`, `status`, `scaStatus`, `account`, `balances`, `transactions`, `transactionDetails`, `cardAccount`, `cardTransactions`, `first`, `next`, `previous`, `last`, `download`, `<*>` | `scaRedirect`, `scaOAuth`, `confirmation`, `creditorNameConfirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, **`updateResourceByDebtorAccountResource`**, `self`, `status`, **`transactionfees`**, `scaStatus`, `account`, **`savingsAccount`**, **`loanAccount`**, `balances`, `transactions`, `cardAccount`, `cardTransactions`, `transactionDetails`, **`ibanCheck`**, **`paymentInitiation`**, **`securitiesAccount`**, **`positions`**, **`orders`**, **`orderDetails`**, **`relatedOrders[]`**, **`relatedTransactions[]`**, **`subscription`**, **`entryStatusRevoked[]`**, `first`, `next`, `previous`, `last`, `download`, **`confirmInitiation`**, **`aspspParameters`**, **`aspspContacts`**, **`aspspDowntimes`**, **`onboardings`**, **`readConditions`**, **`confirmConditions`** | V1: `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `<*>` removed.<br>V2: many new links added (**bold**). |
+| **Response headers** | `Location`, `X-Request-ID` | `Location`, `X-Request-ID`, **`X-Reference-API-Name`**, **`X-Reference-API-Document`**, **`X-Reference-API-Version`**, **`ASPSP-Notification-Support`** | New headers added |
+
+
+---
+
+
+### 🔹 Response 406 
+
+*(no schema shown in v2)*
+
+| Aspect     | V1 | V2 |
+|------------|----|----|
+| **Schema** | *(schema shown)* | *(no schema shown)* |
+| **Headers** | - **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)* | - **X-Reference-API-Name** – `"Berlin Group openFinance API"` *(string)*<br>- **X-Reference-API-Document** – Implementation Guideline document name *(string)*<br>- **X-Reference-API-Version** – Version of the API *(string)*<br>- **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)*<br>- **ASPSP-Notification-Support** – Indicates support for resource status notifications *(boolean)* |
+
+
+---
+
+
+### Response 408
+
+| Aspect     | V1 | V2 |
+|------------|----|----|
+| **Schema** | *(no schema shown)* | *(no schema shown)* |
+| **Headers** | - **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)* | - **X-Reference-API-Name** – `"Berlin Group openFinance API"` *(string)*<br>- **X-Reference-API-Document** – Implementation Guideline document name *(string)*<br>- **X-Reference-API-Version** – Version of the API *(string)*<br>- **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)*<br>- **ASPSP-Notification-Support** – Indicates support for resource status notifications *(boolean)* |
+
+
+--- 
+
+
+### Response 409 — Differences Only (V1 vs V2)
+
+| Aspect | V1 | V2 | Change |
+|---|---|---|---|
+| **Error container & item type** | `tppMessages[]` of `tppMessage409_AIS` | `apiClientMessages[]` of `clientMessageInformation_409_AUTHORISATION` | Renamed structures & scoped to Authorisation in V2 |
+| **Error code set (enums)** | **MessageCode409_AIS**:<br>- `STATUS_INVALID` | **MessageCode_ServiceUnspecific_409**:<br>- `STATUS_INVALID` | Same enum retained, wrapped under `ServiceUnspecific` type in V2 |
+| **Example error** | Example: `[ { "category": "ERROR", "code": "STATUS_INVALID", "text": "additional text information of the ASPSP up to 500 characters" } ]` | Example: `"code": "STATUS_INVALID"` | Example format streamlined in V2 |
+| **_links** | `scaRedirect`, `scaOAuth`, `confirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `creditorNameConfirmation`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, `self`, `status`, `scaStatus`, `account`, `balances`, `transactions`, `transactionDetails`, `cardAccount`, `cardTransactions`, `first`, `next`, `previous`, `last`, `download`, `<*>` | `scaRedirect`, `scaOAuth`, `confirmation`, `creditorNameConfirmation`, `startAuthorisation`, `startAuthorisationWithPsuIdentification`, `updatePsuIdentification`, `startAuthorisationWithProprietaryData`, `updateProprietaryData`, `startAuthorisationWithPsuAuthentication`, `updatePsuAuthentication`, `startAuthorisationWithEncryptedPsuAuthentication`, `updateEncryptedPsuAuthentication`, `startAuthorisationWithAuthenticationMethodSelection`, `selectAuthenticationMethod`, `startAuthorisationWithTransactionAuthorisation`, `authoriseTransaction`, **`updateResourceByDebtorAccountResource`**, `self`, `status`, **`transactionfees`**, `scaStatus`, `account`, **`savingsAccount`**, **`loanAccount`**, `balances`, `transactions`, `cardAccount`, `cardTransactions`, `transactionDetails`, **`ibanCheck`**, **`paymentInitiation`**, **`securitiesAccount`**, **`positions`**, **`orders`**, **`orderDetails`**, **`relatedOrders[]`**, **`relatedTransactions[]`**, **`subscription`**, **`entryStatusRevoked[]`**, `first`, `next`, `previous`, `last`, `download`, **`confirmInitiation`**, **`aspspParameters`**, **`aspspContacts`**, **`aspspDowntimes`**, **`onboardings`**, **`readConditions`**, **`confirmConditions`** | V1: `updateAdditionalPsuAuthentication`, `updateAdditionalEncryptedPsuAuthentication`, `<*>` removed.<br>V2: many new links added (**bold**). |
+| **Response headers** | `Location`, `X-Request-ID` | `Location`, `X-Request-ID`, **`X-Reference-API-Name`**, **`X-Reference-API-Document`**, **`X-Reference-API-Version`**, **`ASPSP-Notification-Support`** | New headers added |
+
+
+---
+
+
+### 🔹 Response 415 – Request Timeout
+
+| Aspect     | V1 | V2 |
+|------------|----|----|
+| **Schema** | *(no schema shown)* | *(no schema shown)* |
+| **Headers** | - **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)* | - **X-Reference-API-Name** – `"Berlin Group openFinance API"` *(string)*<br>- **X-Reference-API-Document** – Implementation Guideline document name *(string)*<br>- **X-Reference-API-Version** – Version of the API *(string)*<br>- **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)*<br>- **ASPSP-Notification-Support** – Indicates support for resource status notifications *(boolean)* |
+
+
+---
+
+
+### 🔹 Response 429 – Request Timeout
+
+Method is deleted in v2.
+
+
+---
+
+
+### 🔹 Response 500 – Request Timeout
+
+| Aspect     | V1 | V2 |
+|------------|----|----|
+| **Schema** | *(no schema shown)* | *(no schema shown)* |
+| **Headers** | - **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)* | - **X-Reference-API-Name** – `"Berlin Group openFinance API"` *(string)*<br>- **X-Reference-API-Document** – Implementation Guideline document name *(string)*<br>- **X-Reference-API-Version** – Version of the API *(string)*<br>- **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)*<br>- **ASPSP-Notification-Support** – Indicates support for resource status notifications *(boolean)* |
+
+
+---
+
+
+### 🔹 Response 503 – Request Timeout
+
+| Aspect     | V1 | V2 |
+|------------|----|----|
+| **Schema** | *(no schema shown)* | *(no schema shown)* |
+| **Headers** | - **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)* | - **X-Reference-API-Name** – `"Berlin Group openFinance API"` *(string)*<br>- **X-Reference-API-Document** – Implementation Guideline document name *(string)*<br>- **X-Reference-API-Version** – Version of the API *(string)*<br>- **Location** – Location of the created resource *(string)*<br>- **X-Request-ID** – ID of the request *(string)*<br>- **ASPSP-Notification-Support** – Indicates support for resource status notifications *(boolean)* |
+
+
+---
+
+
+
 ## 5.1 Delete Consent - AIS
 
 **Endpoints**
@@ -110,12 +315,12 @@ Path
 
 Header
   Digest 
-- Only if Signature is present in request.  
-- Example: SHA-256=hl1/Eps8BEQW58FJhDApwJXjGY4nr1ArGDHIT25vq6A=
-+ Must always follow RFC3230 + RFC5843 rules.  
-+ Hash of body or empty byte list if no body.  
-+ Algorithms: SHA-256, SHA-512.  
-+ Example: SHA-256=hl1/Eps8BEQW58FJhDApwJXjGY4nr1ArGDHIT25vq6A=
+  - Only if Signature is present in request.  
+  - Example: SHA-256=hl1/Eps8BEQW58FJhDApwJXjGY4nr1ArGDHIT25vq6A=
+  + Must always follow RFC3230 + RFC5843 rules.  
+  + Hash of body or empty byte list if no body.  
+  + Algorithms: SHA-256, SHA-512.  
+  + Example: SHA-256=hl1/Eps8BEQW58FJhDApwJXjGY4nr1ArGDHIT25vq6A=
 
 - Signature 
 - TPP-Signature-Certificate 
