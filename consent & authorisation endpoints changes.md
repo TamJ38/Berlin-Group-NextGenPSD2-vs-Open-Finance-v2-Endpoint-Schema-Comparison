@@ -299,6 +299,69 @@ Method is deleted in v2.
 ---
 
 
+## 4.2 GET Authorisation by ID (read SCA status) - PIS
+
+**Endpoints**
+- **V1:** `GET /v1/payment-service/{payment-product}/{payment-id}/authorisations/{authorisation-id}`
+- **V2:** `GET /v2/{resource-path}/{resourceId}/{authorisation-category}/{authorisationId}`
+
+
+```diff
+# Path
+
+- payment-service * (path)
+-   Allowed: payments | bulk-payments | periodic-payments
+- payment-product * (path)
+- paymentId * (path)
++ resource-path * (path)
++   {service} or {service}/{product-type}, e.g. consents/account-access
+-   (replaced by resource-path; service/product-type embedded here)
+-   (payment-service + payment-product removed)
+- paymentId → (replaced)
++ resourceId * (path)
++   ID of the related business resource (payment, signing-basket, consent, subscription, …)
+
+  authorisationId * (path)
+  Resource identification of the related SCA.
+  (unchanged)
+
++ authorisation-category * (path)
++   Allowed: authorisations | cancellation-authorisations
++   (new to distinguish normal vs cancellation authorisations)
+
+# Headers
+
+  X-Request-ID * (header)
+  ID of the request (uuid). (unchanged)
+
+- Signature (header)
+-   TPP application-level signature
+- TPP-Signature-Certificate (header)
+-   Base64 of certificate used for Signature
++ x-jws-signature (header)
++   JSON Web Signature (JWS) of the request
+
+- Digest (conditional only if Signature present)
++ Digest (header)
++   Must follow RFC3230/RFC5843; hash of body or empty byte list; algos: SHA-256, SHA-512
+
+- PSU-IP-Address
+- PSU-IP-Port
+- PSU-Accept
+- PSU-Accept-Charset
+- PSU-Accept-Encoding
+- PSU-Accept-Language
+- PSU-User-Agent
+- PSU-Http-Method
+- PSU-Device-ID
+- PSU-Geo-Location
+-   (all PSU-* forwarding headers removed in V2)
+
+```
+
+
+---
+
 
 ## 5.1 Delete Consent - AIS
 
