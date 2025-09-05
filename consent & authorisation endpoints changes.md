@@ -95,6 +95,47 @@ _All replaced with:_
 
 # Detailed comparison
 
+## 3 PUT Authorisation by ID (update SCA status)
+
+```diff
+# PATH
+- payment-service / payment-product / paymentId        # V1 (PIS)
+- consentId                                            # V1 (AIS)
+- CoF-consent-id                                       # V1 (PIIS)
+~ authorisationId                                      # останува
++ resource-path                                        # {service}[/{product-type}]
++ resourceId                                           # ID на ресурсот (payment/consent/…)
++ authorisation-category                               # authorisations | cancellation-authorisations
+
+# SIGNATURES
+- Signature + TPP-Signature-Certificate (V1 only)
++ x-jws-signature, Body-Sig-Profile, Body-Enc-Profile, Body-Enc-List (V2 only)
+
+# PSU CONTEXT & IDENTITIES
+~ целиот PSU-… сет останува (IP, Port, Accept*, UA, Http-Method, Device-ID, Geo, PSU-ID, PSU-ID-Type, PSU-Corporate-*)
+
+```
+
+### Request body
+
+```diff
+- oneOf:                                        # V1
+-   updatePsuAuthentication.psuData:
+-     password?
+-     encryptedPassword?
+-     additionalPassword?              # removed in V2
+-     additionalEncryptedPassword?     # removed in V2
+-   selectPsuAuthenticationMethod.authenticationMethodId  # maxLength: 35
+-   transactionAuthorisation.scaAuthenticationData        # base64 if binary
+-   authorisationConfirmation.confirmationCode
+
++ anyOf:                                        # V2
++   { psuData: { password?, encryptedPassword? } }
++   { authenticationMethodId }                  # no maxLength specified
++   { scaAuthenticationData }                   # base64 if binary
++   { confirmationCode }
+```
+
 ## 4 GET Authorisation by ID (read SCA status)
 
 ### Parameters
